@@ -284,7 +284,7 @@ namespace SiteMonitorings.Worker
                     pageSettings.AlreadySendedListings.Add(parametersForListing);
                     if (pageSettings.AlreadySendedListings.Count > 150)
                         pageSettings.AlreadySendedListings.RemoveRange(0, pageSettings.AlreadySendedListings.Count - 150);
-                    parametersChangingMutex.WaitOne();
+                    parametersChangingMutex.ReleaseMutex();
                     OnFoundNewElement(parametersForListing);
                 }
             }
