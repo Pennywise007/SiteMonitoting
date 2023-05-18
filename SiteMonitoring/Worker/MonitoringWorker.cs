@@ -123,12 +123,12 @@ namespace SiteMonitorings.Worker
                 {
                     try
                     {
-                        webDriverHelper = new WebDriverHelper();
-                        webDriverHelper.Driver = WebDriverHelper.CreateWebDriver();
+                        webDriverHelper = CreateWebDriver();
                     }
-                    catch (WebDriverException exception)
+                    catch (Exception exception)
                     {
-                        throw new WebDriverException("Не удалось создать драйвер для управления хромом.", exception);
+                        OnError($"Failed to create a web driver\": {exception.Message}");
+                        continue;
                     }
 
                     foreach (var page in pageSettings)
@@ -210,6 +210,30 @@ namespace SiteMonitorings.Worker
                 webDriverHelper?.Driver.Quit();
                 WhenFinish?.Invoke(this, null);
             }
+        }
+
+        static WebDriverHelper CreateWebDriver()
+        {
+            int attempt = 0, maxAttempts = 5;
+
+            while (true)
+            {
+                try
+                {
+                    var webDriverHelper = new WebDriverHelper();
+                    webDriverHelper.Driver = WebDriverHelper.CreateWebDriver();
+                    return webDriverHelper;
+                }
+                catch (Exception)
+                {
+                    if (++attempt == maxAttempts)
+                    {
+                        throw;
+                    }
+                }
+            }
+
+            throw new InvalidOperationException("Unreachable code");
         }
 
         IWebElement GetListingsListElement(WebDriverHelper webDriverHelper, PageSettings pageSettings)
