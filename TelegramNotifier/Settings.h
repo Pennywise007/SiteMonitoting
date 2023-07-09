@@ -21,14 +21,7 @@ class Settings : private ext::serializable::SerializableObject<Settings>
     }
     ~Settings()
     {
-        using namespace ext::serializable::serializer;
-        try
-        {
-            Executor::SerializeObject(Fabric::XMLSerializer(get_settings_path()), this);
-        }
-        catch (...)
-        {
-        }
+        Store();
     }
 
 private:
@@ -44,6 +37,18 @@ private:
     }
 
 public:
+    void Store()
+    {
+        using namespace ext::serializable::serializer;
+        try
+        {
+            Executor::SerializeObject(Fabric::XMLSerializer(get_settings_path()), this);
+        }
+        catch (...)
+        {
+        }
+    }
+
     struct User : private ext::serializable::SerializableObject<User>
     {
         User() EXT_NOEXCEPT = default;

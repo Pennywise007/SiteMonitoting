@@ -99,6 +99,7 @@ void CTelegramNotifierDlg::StoreParameters()
 	m_settings.token = str;
 	m_editPassword.GetWindowTextW(str);
 	m_settings.password = str;
+	m_settings.Store();
 }
 
 void CTelegramNotifierDlg::StopThread()
@@ -228,7 +229,9 @@ void CTelegramNotifierDlg::OnBnClickedButtonRun()
 
 			ext::InvokeMethodAsync([telegramThread, pUser = commandMessage->from]()
 				{
-					auto& users = ext::get_service<Settings>().registeredUsers;
+					auto& settings = ext::get_service<Settings>();
+
+					auto& users = settings.registeredUsers;
 					const bool exist = std::any_of(users.begin(), users.end(),
 						[&](const Settings::User& user)
 						{
@@ -239,6 +242,8 @@ void CTelegramNotifierDlg::OnBnClickedButtonRun()
 					else
 					{
 						users.emplace_back(pUser);
+						settings.Store();
+
 						telegramThread->SendMessage(pUser->id, L"User registered");
 					}
 				});
