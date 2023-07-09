@@ -37,23 +37,24 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.PathToList = new MetroFramework.Controls.MetroGrid();
             this.ColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.typeDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.PathToListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.textBoxSiteLink = new MetroFramework.Controls.MetroTextBox();
             this.label1 = new MetroFramework.Controls.MetroLabel();
             this.labelListPath = new MetroFramework.Controls.MetroLabel();
             this.label3 = new MetroFramework.Controls.MetroLabel();
             this.textBoxListElementName = new MetroFramework.Controls.MetroTextBox();
             this.ParametersTable = new MetroFramework.Controls.MetroGrid();
-            this.ParametersListBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.labelParameters = new MetroFramework.Controls.MetroLabel();
             this.FullPath = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.typeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.ParameterName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.labelParameters = new MetroFramework.Controls.MetroLabel();
+            this.buttonExecuteScript = new System.Windows.Forms.CheckBox();
+            this.typeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.ParametersListBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.typeDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.PathToListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.PathToList)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PathToListBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ParametersTable)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ParametersListBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PathToListBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // PathToList
@@ -92,8 +93,8 @@
             this.PathToList.EnableHeadersVisualStyles = false;
             this.PathToList.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.PathToList.GridColor = System.Drawing.Color.White;
-            this.PathToList.Location = new System.Drawing.Point(2, 91);
-            this.PathToList.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.PathToList.Location = new System.Drawing.Point(1, 58);
+            this.PathToList.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.PathToList.Name = "PathToList";
             this.PathToList.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -107,7 +108,7 @@
             this.PathToList.RowHeadersWidth = 62;
             this.PathToList.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.PathToList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.PathToList.Size = new System.Drawing.Size(1284, 134);
+            this.PathToList.Size = new System.Drawing.Size(856, 89);
             this.PathToList.TabIndex = 0;
             // 
             // ColumnName
@@ -117,19 +118,6 @@
             this.ColumnName.MinimumWidth = 8;
             this.ColumnName.Name = "ColumnName";
             // 
-            // typeDataGridViewTextBoxColumn1
-            // 
-            this.typeDataGridViewTextBoxColumn1.DataPropertyName = "Type";
-            this.typeDataGridViewTextBoxColumn1.HeaderText = "Тип элемента";
-            this.typeDataGridViewTextBoxColumn1.MinimumWidth = 8;
-            this.typeDataGridViewTextBoxColumn1.Name = "typeDataGridViewTextBoxColumn1";
-            this.typeDataGridViewTextBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.typeDataGridViewTextBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // PathToListBindingSource
-            // 
-            this.PathToListBindingSource.DataSource = typeof(SiteMonitorings.Settings.ElementInfo);
-            // 
             // textBoxSiteLink
             // 
             this.textBoxSiteLink.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -138,18 +126,16 @@
             // 
             // 
             this.textBoxSiteLink.CustomButton.Image = null;
-            this.textBoxSiteLink.CustomButton.Location = new System.Drawing.Point(1596, 2);
-            this.textBoxSiteLink.CustomButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.textBoxSiteLink.CustomButton.Location = new System.Drawing.Point(527, 2);
             this.textBoxSiteLink.CustomButton.Name = "";
-            this.textBoxSiteLink.CustomButton.Size = new System.Drawing.Size(44, 45);
+            this.textBoxSiteLink.CustomButton.Size = new System.Drawing.Size(15, 15);
             this.textBoxSiteLink.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.textBoxSiteLink.CustomButton.TabIndex = 1;
             this.textBoxSiteLink.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
             this.textBoxSiteLink.CustomButton.UseSelectable = true;
             this.textBoxSiteLink.CustomButton.Visible = false;
             this.textBoxSiteLink.Lines = new string[0];
-            this.textBoxSiteLink.Location = new System.Drawing.Point(194, 22);
-            this.textBoxSiteLink.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.textBoxSiteLink.Location = new System.Drawing.Point(129, 14);
             this.textBoxSiteLink.MaxLength = 32767;
             this.textBoxSiteLink.Name = "textBoxSiteLink";
             this.textBoxSiteLink.PasswordChar = '\0';
@@ -158,7 +144,7 @@
             this.textBoxSiteLink.SelectionLength = 0;
             this.textBoxSiteLink.SelectionStart = 0;
             this.textBoxSiteLink.ShortcutsEnabled = true;
-            this.textBoxSiteLink.Size = new System.Drawing.Size(1094, 31);
+            this.textBoxSiteLink.Size = new System.Drawing.Size(545, 20);
             this.textBoxSiteLink.TabIndex = 10;
             this.textBoxSiteLink.UseSelectable = true;
             this.textBoxSiteLink.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
@@ -167,8 +153,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(-2, 22);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(-1, 14);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(102, 19);
             this.label1.TabIndex = 11;
@@ -179,8 +164,7 @@
             this.labelListPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelListPath.AutoSize = true;
-            this.labelListPath.Location = new System.Drawing.Point(500, 57);
-            this.labelListPath.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelListPath.Location = new System.Drawing.Point(333, 37);
             this.labelListPath.Name = "labelListPath";
             this.labelListPath.Size = new System.Drawing.Size(177, 19);
             this.labelListPath.TabIndex = 12;
@@ -190,8 +174,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(-2, 235);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(-1, 153);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(248, 19);
             this.label3.TabIndex = 13;
@@ -205,18 +188,16 @@
             // 
             // 
             this.textBoxListElementName.CustomButton.Image = null;
-            this.textBoxListElementName.CustomButton.Location = new System.Drawing.Point(1300, 2);
-            this.textBoxListElementName.CustomButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.textBoxListElementName.CustomButton.Location = new System.Drawing.Point(387, 1);
             this.textBoxListElementName.CustomButton.Name = "";
-            this.textBoxListElementName.CustomButton.Size = new System.Drawing.Size(44, 45);
+            this.textBoxListElementName.CustomButton.Size = new System.Drawing.Size(10, 10);
             this.textBoxListElementName.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.textBoxListElementName.CustomButton.TabIndex = 1;
             this.textBoxListElementName.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
             this.textBoxListElementName.CustomButton.UseSelectable = true;
             this.textBoxListElementName.CustomButton.Visible = false;
             this.textBoxListElementName.Lines = new string[0];
-            this.textBoxListElementName.Location = new System.Drawing.Point(390, 234);
-            this.textBoxListElementName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.textBoxListElementName.Location = new System.Drawing.Point(260, 152);
             this.textBoxListElementName.MaxLength = 32767;
             this.textBoxListElementName.Name = "textBoxListElementName";
             this.textBoxListElementName.PasswordChar = '\0';
@@ -225,7 +206,7 @@
             this.textBoxListElementName.SelectionLength = 0;
             this.textBoxListElementName.SelectionStart = 0;
             this.textBoxListElementName.ShortcutsEnabled = true;
-            this.textBoxListElementName.Size = new System.Drawing.Size(897, 31);
+            this.textBoxListElementName.Size = new System.Drawing.Size(598, 20);
             this.textBoxListElementName.TabIndex = 14;
             this.textBoxListElementName.UseSelectable = true;
             this.textBoxListElementName.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
@@ -269,8 +250,7 @@
             this.ParametersTable.EnableHeadersVisualStyles = false;
             this.ParametersTable.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.ParametersTable.GridColor = System.Drawing.Color.White;
-            this.ParametersTable.Location = new System.Drawing.Point(2, 308);
-            this.ParametersTable.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.ParametersTable.Location = new System.Drawing.Point(1, 200);
             this.ParametersTable.Name = "ParametersTable";
             this.ParametersTable.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -284,25 +264,8 @@
             this.ParametersTable.RowHeadersWidth = 62;
             this.ParametersTable.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.ParametersTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.ParametersTable.Size = new System.Drawing.Size(1284, 186);
+            this.ParametersTable.Size = new System.Drawing.Size(856, 121);
             this.ParametersTable.TabIndex = 15;
-            // 
-            // ParametersListBindingSource
-            // 
-            this.ParametersListBindingSource.DataSource = typeof(SiteMonitorings.Settings.ParameterInfo);
-            // 
-            // labelParameters
-            // 
-            this.labelParameters.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelParameters.AutoSize = true;
-            this.labelParameters.Location = new System.Drawing.Point(446, 269);
-            this.labelParameters.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.labelParameters.Name = "labelParameters";
-            this.labelParameters.Size = new System.Drawing.Size(268, 19);
-            this.labelParameters.TabIndex = 16;
-            this.labelParameters.Text = "Список путей и параметров для отправки";
-            this.labelParameters.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // FullPath
             // 
@@ -311,6 +274,42 @@
     "и нужен параметр самого листинга)";
             this.FullPath.MinimumWidth = 8;
             this.FullPath.Name = "FullPath";
+            // 
+            // ParameterName
+            // 
+            this.ParameterName.DataPropertyName = "ParameterName";
+            this.ParameterName.HeaderText = "Имя элемента";
+            this.ParameterName.MinimumWidth = 8;
+            this.ParameterName.Name = "ParameterName";
+            // 
+            // labelParameters
+            // 
+            this.labelParameters.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelParameters.AutoSize = true;
+            this.labelParameters.Location = new System.Drawing.Point(297, 175);
+            this.labelParameters.Name = "labelParameters";
+            this.labelParameters.Size = new System.Drawing.Size(268, 19);
+            this.labelParameters.TabIndex = 16;
+            this.labelParameters.Text = "Список путей и параметров для отправки";
+            this.labelParameters.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // buttonExecuteScript
+            // 
+            this.buttonExecuteScript.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonExecuteScript.Appearance = System.Windows.Forms.Appearance.Button;
+            this.buttonExecuteScript.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.buttonExecuteScript.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.buttonExecuteScript.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.buttonExecuteScript.Location = new System.Drawing.Point(678, 11);
+            this.buttonExecuteScript.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.buttonExecuteScript.Name = "buttonExecuteScript";
+            this.buttonExecuteScript.Size = new System.Drawing.Size(179, 26);
+            this.buttonExecuteScript.TabIndex = 17;
+            this.buttonExecuteScript.Text = "Execute script on open";
+            this.buttonExecuteScript.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.buttonExecuteScript.UseVisualStyleBackColor = false;
+            this.buttonExecuteScript.CheckedChanged += new System.EventHandler(this.buttonExecuteScript_CheckedChanged);
             // 
             // typeDataGridViewTextBoxColumn
             // 
@@ -323,18 +322,29 @@
             this.typeDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.typeDataGridViewTextBoxColumn.Width = 120;
             // 
-            // ParameterName
+            // ParametersListBindingSource
             // 
-            this.ParameterName.DataPropertyName = "ParameterName";
-            this.ParameterName.HeaderText = "Имя элемента";
-            this.ParameterName.MinimumWidth = 8;
-            this.ParameterName.Name = "ParameterName";
+            this.ParametersListBindingSource.DataSource = typeof(SiteMonitorings.Settings.ParameterInfo);
+            // 
+            // typeDataGridViewTextBoxColumn1
+            // 
+            this.typeDataGridViewTextBoxColumn1.DataPropertyName = "Type";
+            this.typeDataGridViewTextBoxColumn1.HeaderText = "Тип элемента";
+            this.typeDataGridViewTextBoxColumn1.MinimumWidth = 8;
+            this.typeDataGridViewTextBoxColumn1.Name = "typeDataGridViewTextBoxColumn1";
+            this.typeDataGridViewTextBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.typeDataGridViewTextBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // PathToListBindingSource
+            // 
+            this.PathToListBindingSource.DataSource = typeof(SiteMonitorings.Settings.ElementInfo);
             // 
             // SiteInformation
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1287, 497);
+            this.ClientSize = new System.Drawing.Size(858, 323);
+            this.Controls.Add(this.buttonExecuteScript);
             this.Controls.Add(this.labelParameters);
             this.Controls.Add(this.ParametersTable);
             this.Controls.Add(this.textBoxListElementName);
@@ -345,16 +355,15 @@
             this.Controls.Add(this.PathToList);
             this.DisplayHeader = false;
             this.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Movable = false;
             this.Name = "SiteInformation";
-            this.Padding = new System.Windows.Forms.Padding(30, 46, 30, 31);
+            this.Padding = new System.Windows.Forms.Padding(20, 30, 20, 20);
             this.Resizable = false;
             this.ShadowType = MetroFramework.Forms.MetroFormShadowType.None;
             ((System.ComponentModel.ISupportInitialize)(this.PathToList)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PathToListBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ParametersTable)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ParametersListBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PathToListBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -377,5 +386,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn FullPath;
         private System.Windows.Forms.DataGridViewComboBoxColumn typeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn ParameterName;
+        private System.Windows.Forms.CheckBox buttonExecuteScript;
     }
 }

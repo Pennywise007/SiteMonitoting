@@ -16,30 +16,30 @@ namespace SiteMonitoring
 {
     public partial class SiteInformation : MetroForm
     {
-        public PageSettings CurerntSettings;
+        public PageSettings CurrentSettings;
 
         public SiteInformation(PageSettings settings, MetroFramework.Controls.MetroTabPage parent)
         {
             InitializeComponent();
 
-            CurerntSettings = settings;
+            CurrentSettings = settings;
 
-            textBoxSiteLink.Text = CurerntSettings.SiteLink;
-            textBoxListElementName.Text = CurerntSettings.ListingsElementNameInList;
+            textBoxSiteLink.Text = CurrentSettings.SiteLink;
+            textBoxListElementName.Text = CurrentSettings.ListingsElementNameInList;
 
             PathToList.DataSource = new BindingSource
             {
-                DataSource = new SortableBindingList<ElementInfo>(CurerntSettings.PathToList),
+                DataSource = new SortableBindingList<ElementInfo>(CurrentSettings.PathToList),
                 AllowNew = true
             };
 
             ParametersTable.DataSource = new BindingSource
             {
-                DataSource = new SortableBindingList<ParameterInfo>(CurerntSettings.ParametersList),
+                DataSource = new SortableBindingList<ParameterInfo>(CurrentSettings.ParametersList),
                 AllowNew = true
             };
 
-            parent.Text = CurerntSettings.Name;
+            parent.Text = CurrentSettings.Name;
 
             ListPathInfoDetails.SetupElementTypes(ref typeDataGridViewTextBoxColumn1, true);
             ListPathInfoDetails.SetupElementTypes(ref typeDataGridViewTextBoxColumn, false);
@@ -47,9 +47,15 @@ namespace SiteMonitoring
 
         public void StoreSettings(TabPage ctrl)
         {
-            CurerntSettings.SiteLink = textBoxSiteLink.Text;
-            CurerntSettings.ListingsElementNameInList = textBoxListElementName.Text;
-            CurerntSettings.Name = ctrl.Text;
+            CurrentSettings.SiteLink = textBoxSiteLink.Text;
+            CurrentSettings.ListingsElementNameInList = textBoxListElementName.Text;
+            CurrentSettings.Name = ctrl.Text;
+        }
+
+        private void buttonExecuteScript_CheckedChanged(object sender, EventArgs e)
+        {
+            ScriptExecution executionDialog = new ScriptExecution(CurrentSettings.ExecutionInfo);
+            executionDialog.Execute(Control.FromHandle(this.Handle));
         }
     }
 }

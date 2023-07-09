@@ -38,6 +38,22 @@ namespace SiteMonitorings.Settings
     }
 
     [Serializable]
+    public class ExecutionInfo
+    {
+        public enum ExecutionType
+        {
+            eClick = 0,
+            eEnterText,
+            eWait,
+            eInterruptIfExistAndText,
+            eInterruptIfNotExistOrTextNotEqual,
+        };
+        public string path;
+        public ExecutionType action = ExecutionType.eClick;
+        public string value;
+    }
+
+    [Serializable]
     public class PageSettings
     {
         public string Name = "";
@@ -48,6 +64,7 @@ namespace SiteMonitorings.Settings
         public List<ParameterInfo> ParametersList = new List<ParameterInfo>();
 
         public List<ListingInfo> AlreadySendedListings = new List<ListingInfo>();
+        public List<ExecutionInfo> ExecutionInfo = new List<ExecutionInfo>();
     };
 
     [Serializable]
@@ -56,10 +73,11 @@ namespace SiteMonitorings.Settings
         public enum ElementType
         {
             Class = 0,
-            ClassContains = 1,
-            Link = 2,
-            Text = 3,
-            Attribute = 4
+            ClassContains,
+            Link,
+            Text,
+            Attribute,
+            XPath
         }
 
         public string Name { get; set; }
@@ -88,6 +106,8 @@ namespace SiteMonitorings.Settings
                     return ByText.Contains(name);
                 case ElementType.Attribute:
                     return ByAttribute.Name(name);
+                case ElementType.XPath:
+                    return By.XPath(name);
                 default:
                     throw new Exception("Unknownw element type");
             }
@@ -97,6 +117,7 @@ namespace SiteMonitorings.Settings
             switch (type)
             {
                 case ElementType.Class:
+                case ElementType.ClassContains:
                     throw new Exception("Parameter can't be a class");
                 case ElementType.Link:
                     return ByLink.GetElementLink(element);
@@ -105,8 +126,27 @@ namespace SiteMonitorings.Settings
                 case ElementType.Attribute:
                     return element.GetAttribute(name);
                 default:
-                    throw new Exception("Unknownw element type");
+                    throw new Exception($"Unsupported element type {type} for get content");
             }
+        }
+
+        static public List<ElementInfo> ConvertToElementsInfo(string fullPath)
+        {
+            string[] separator = { "->" };
+            var res = fullPath.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+
+            List<ElementInfo> list = new List<ElementInfo>();
+            foreach (var element in res)
+            {
+                var text = element.Trim();
+                Debug.Assert(!string.IsNullOrEmpty(text));
+                if (text.StartsWith(".//") || text.StartsWith("//"))
+                    list.Add(new ElementInfo { Name = text, Type = ElementInfo.ElementType.XPath });
+                else
+                    list.Add(new ElementInfo { Name = text, Type = ElementInfo.ElementType.Class });
+            }
+
+            return list;
         }
     }
 
@@ -119,22 +159,6 @@ namespace SiteMonitorings.Settings
         public ElementInfo.ElementType Type { get; set; } = ElementInfo.ElementType.Link;
 
         public string ParameterName { get; set; }
-
-        public List<ElementInfo> GetPathToParameter()
-        {
-            string[] separator = { "->" };
-            var res = FullPath.Split(separator, StringSplitOptions.RemoveEmptyEntries);
-
-            List<ElementInfo> list = new List<ElementInfo>();
-            foreach (var element in res)
-            {
-                var text = element.Trim();
-                Debug.Assert(!string.IsNullOrEmpty(text));
-                list.Add(new ElementInfo { Name = text, Type = ElementInfo.ElementType.Class });
-            }
-
-            return list;
-        }
     }
 
     [Serializable]
@@ -160,6 +184,7 @@ namespace SiteMonitorings.Settings
             list.Add(new ListPathInfoDetails { Type = ElementInfo.ElementType.Link, Presentation = "Link" });
             list.Add(new ListPathInfoDetails { Type = ElementInfo.ElementType.Text, Presentation = "Text" });
             list.Add(new ListPathInfoDetails { Type = ElementInfo.ElementType.Attribute, Presentation = "Attribute" });
+            list.Add(new ListPathInfoDetails { Type = ElementInfo.ElementType.XPath, Presentation = "XPath" });
 
             column.DataSource = new BindingList<ListPathInfoDetails>(list);
             column.DisplayMember = "Presentation";

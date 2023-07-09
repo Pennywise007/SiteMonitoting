@@ -131,6 +131,12 @@
     <Compile Include="Rename.Designer.cs">
       <DependentUpon>Rename.cs</DependentUpon>
     </Compile>
+    <Compile Include="ScriptExecution.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ScriptExecution.Designer.cs">
+      <DependentUpon>ScriptExecution.cs</DependentUpon>
+    </Compile>
     <Compile Include="SiteInformation.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -157,6 +163,9 @@
     <Compile Include="WebDriverHelper.cs" />
     <EmbeddedResource Include="Rename.resx">
       <DependentUpon>Rename.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ScriptExecution.resx">
+      <DependentUpon>ScriptExecution.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SiteInformation.resx">
       <DependentUpon>SiteInformation.cs</DependentUpon>

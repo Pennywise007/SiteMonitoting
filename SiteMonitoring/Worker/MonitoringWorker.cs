@@ -17,6 +17,7 @@ using System.Xml.Linq;
 using System.Collections.ObjectModel;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Diagnostics.Contracts;
+using static SiteMonitorings.Settings.ExecutionInfo;
 
 namespace SiteMonitorings.Worker
 {
@@ -65,7 +66,7 @@ namespace SiteMonitorings.Worker
 
                     foreach (var param in page.ParametersList)
                     {
-                        var Elements = param.GetPathToParameter();
+                        var Elements = ElementInfo.ConvertToElementsInfo(param.FullPath);
                         if (!Elements.Any())
                             throw new ArgumentException($"Can't find path to parameter '{param.ParameterName}' in page {page.Name}");
                         foreach (var element in Elements)
@@ -137,6 +138,8 @@ namespace SiteMonitorings.Worker
                         {
                             webDriverHelper.OpenNewTab(page.SiteLink);
 
+                            ExecuteActions(webDriverHelper, page.ExecutionInfo);
+
                             for (int i = 0; i < 5; ++i)
                             {
                                 try
@@ -145,7 +148,7 @@ namespace SiteMonitorings.Worker
 
                                     try
                                     {
-                                        list = GetListingsListElement(webDriverHelper, page);
+                                        list = GetElement(webDriverHelper, page.PathToList);
                                         if (list == null)
                                             throw new Exception("Element not found");
                                     }
@@ -207,7 +210,14 @@ namespace SiteMonitorings.Worker
             }
             finally
             {
-                webDriverHelper?.Driver.Quit();
+                try
+                {
+                    webDriverHelper?.Driver.Quit();
+                }
+                catch (Exception exception)
+                {
+                    OnError(exception.ToString());
+                }
                 WhenFinish?.Invoke(this, null);
             }
         }
@@ -236,22 +246,67 @@ namespace SiteMonitorings.Worker
             throw new InvalidOperationException("Unreachable code");
         }
 
-        IWebElement GetListingsListElement(WebDriverHelper webDriverHelper, PageSettings pageSettings)
+        void ExecuteActions(WebDriverHelper webDriverHelper, List<ExecutionInfo> executionInfo)
         {
-            var wait = new WebDriverWait(webDriverHelper.Driver, TimeSpan.FromSeconds(10));
+            foreach (var param in executionInfo)
+            {
+                if (param.action == ExecutionType.eWait)
+                {
+                    Thread.Sleep(int.Parse(param.value) * 1000);
+                    continue;
+                }
 
+                try
+                {
+                    var element = GetElement(webDriverHelper, ElementInfo.ConvertToElementsInfo(param.path));
+
+                    switch (param.action)
+                    {
+                        case ExecutionType.eClick:
+                            element.Click();
+                            break;
+                        case ExecutionType.eEnterText:
+                            element.Clear();
+                            element.SendKeys(param.value);
+                            break;
+                        case ExecutionType.eInterruptIfExistAndText:
+                            if (element.Text == param.value)
+                                return;
+                            break;
+                        case ExecutionType.eInterruptIfNotExistOrTextNotEqual:
+                            if (element.Text != param.value)
+                                return;
+                            break;
+                        default:
+                            throw new Exception($"Unsupported action {param.action} with path {param.path}");
+                    }
+                }
+                catch (Exception)
+                {
+                    if (param.action == ExecutionType.eInterruptIfNotExistOrTextNotEqual)
+                        return;
+                }
+            }
+        }
+
+        IWebElement GetElement(WebDriverHelper webDriverHelper, List<ElementInfo> elements)
+        {
             IWebElement currentElement = null;
             bool first = true;
-            foreach (var element in pageSettings.PathToList)
+            foreach (var element in elements)
             {
                 if (first)
+                {
+                    var wait = new WebDriverWait(webDriverHelper.Driver, TimeSpan.FromSeconds(10));
                     currentElement = wait.Until(driver => webDriverHelper.Driver.FindElement(element.GetBy()));
+                }
                 else
-                    currentElement = wait.Until(driver => currentElement.FindElement(element.GetBy()));
+                    currentElement = currentElement.FindElement(element.GetBy());
+
                 first = false;
             }
             if (currentElement == null)
-                throw new Exception("Can't find listings list by path!");
+                throw new Exception("Can't find element by path!");
             return currentElement;
         }
 
@@ -323,11 +378,11 @@ namespace SiteMonitorings.Worker
                 try
                 {
                     IWebElement parameterElement = listing;
-                    foreach (var element in param.GetPathToParameter())
+                    foreach (var element in ElementInfo.ConvertToElementsInfo(param.FullPath))
                     {
                         if (!element.NeedFindElement())
                         {
-                            Debug.Assert(param.GetPathToParameter().Count == 1);
+                            Debug.Assert(ElementInfo.ConvertToElementsInfo(param.FullPath).Count == 1);
                             continue;
                         }
                         parameterElement = parameterElement.FindElement(element.GetBy());

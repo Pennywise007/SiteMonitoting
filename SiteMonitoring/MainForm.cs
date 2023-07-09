@@ -390,7 +390,7 @@ namespace SiteMonitorings.UI
                     BinaryFormatter s = new BinaryFormatter();
                     using (MemoryStream ms = new MemoryStream())
                     {
-                        s.Serialize(ms, site.CurerntSettings);
+                        s.Serialize(ms, site.CurrentSettings);
                         ms.Position = 0;
                         settings = (PageSettings)s.Deserialize(ms);
                         settings.AlreadySendedListings.Clear();
