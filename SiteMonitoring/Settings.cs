@@ -143,7 +143,7 @@ namespace SiteMonitorings.Settings
                 if (text.StartsWith(".//") || text.StartsWith("//"))
                     list.Add(new ElementInfo { Name = text, Type = ElementInfo.ElementType.XPath });
                 else
-                    list.Add(new ElementInfo { Name = text, Type = ElementInfo.ElementType.Class });
+                    list.Add(new ElementInfo { Name = text, Type = ElementInfo.ElementType.ClassContains });
             }
 
             return list;

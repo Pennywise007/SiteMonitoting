@@ -282,10 +282,12 @@ namespace SiteMonitorings.Worker
                             throw new Exception($"Unsupported action {param.action} with path {param.path}");
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     if (param.action == ExecutionType.eInterruptIfNotExistOrTextNotEqual)
                         return;
+
+                    throw new Exception($"Failed to execute action {param.action} on element with path {param.path}", ex);
                 }
             }
         }
