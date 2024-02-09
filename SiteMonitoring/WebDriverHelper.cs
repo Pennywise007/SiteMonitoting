@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Management;
+using System.Threading;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Interactions;
@@ -62,7 +63,15 @@ namespace SiteMonitorings.WebDriver
                     {
                         elementLink = elements.GetAttribute("onclick");
                     }
-                    catch (Exception) { }
+                    catch (Exception exception)
+                    {
+                        switch (exception)
+                        {
+                            case ThreadInterruptedException _:
+                            case ThreadAbortException _:
+                                throw;
+                        }
+                    }
                 }
                 catch (StaleElementReferenceException) { }
             }
@@ -118,8 +127,14 @@ namespace SiteMonitorings.WebDriver
                     var chromeDriverDirName = Path.GetDirectoryName(new DriverManager().SetUpDriver(new ChromeConfig(), "MatchingBrowser"));
                     return new ChromeDriver(chromeDriverDirName, options);
                 }
-                catch (Exception)
+                catch (Exception exception)
                 {
+                    switch (exception)
+                    {
+                        case ThreadInterruptedException _:
+                        case ThreadAbortException _:
+                            throw;
+                    }
                     return new ChromeDriver(options);
                 }
             }
@@ -136,8 +151,15 @@ namespace SiteMonitorings.WebDriver
                             // Attempt to close the process
                             process.Kill();
                         }
-                        catch (Exception)
-                        {}
+                        catch (Exception exception)
+                        {
+                            switch (exception)
+                            {
+                                case ThreadInterruptedException _:
+                                case ThreadAbortException _:
+                                    throw;
+                            }
+                        }
                     }
                 }
 
