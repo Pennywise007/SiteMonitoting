@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Management;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Interactions;
@@ -77,6 +78,18 @@ namespace SiteMonitorings.WebDriver
         }
     }
 
+    public static class ProcessExtensions
+    {
+        public static IList<Process> GetChildProcesses(this Process process)
+        => new ManagementObjectSearcher(
+                $"Select * From Win32_Process Where ParentProcessID={process.Id}")
+            .Get()
+            .Cast<ManagementObject>()
+            .Select(mo =>
+                Process.GetProcessById(Convert.ToInt32(mo["ProcessID"])))
+            .ToList();
+    }
+
     class WebDriverHelper
     {
         private string _ip;
@@ -95,15 +108,40 @@ namespace SiteMonitorings.WebDriver
             // start new chrome as incognito
             //options.AddArguments("--incognito");
 
-            // auto loading updates for chrome driver
+            var initialProcesses = ProcessExtensions.GetChildProcesses(Process.GetCurrentProcess()).ToList();
+
             try
             {
-                var chromeDriverDirName = Path.GetDirectoryName(new DriverManager().SetUpDriver(new ChromeConfig(), "MatchingBrowser"));
-                return new ChromeDriver(chromeDriverDirName, options);
+                // auto loading updates for chrome driver
+                try
+                {
+                    var chromeDriverDirName = Path.GetDirectoryName(new DriverManager().SetUpDriver(new ChromeConfig(), "MatchingBrowser"));
+                    return new ChromeDriver(chromeDriverDirName, options);
+                }
+                catch (Exception)
+                {
+                    return new ChromeDriver(options);
+                }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return new ChromeDriver(options);
+                // If chrome driver failed after openning his process - kill it.
+                foreach (Process process in ProcessExtensions.GetChildProcesses(Process.GetCurrentProcess()))
+                {
+                    // Check if the process is not in the initial list
+                    if (!initialProcesses.Any(p => p.Id == process.Id))
+                    {
+                        try
+                        {
+                            // Attempt to close the process
+                            process.Kill();
+                        }
+                        catch (Exception)
+                        {}
+                    }
+                }
+
+                throw ex;
             }
         }
 

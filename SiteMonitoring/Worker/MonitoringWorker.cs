@@ -11,7 +11,6 @@ using SiteMonitorings.WebDriver;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SiteMonitorings.Settings;
-using OpenQA.Selenium.DevTools.V102.DOMDebugger;
 using AngleSharp.Dom;
 using System.Xml.Linq;
 using System.Collections.ObjectModel;
@@ -46,35 +45,8 @@ namespace SiteMonitorings.Worker
             {
                 try
                 {
-                    if (page.PathToList == null || page.ParametersList == null)
-                        throw new ArgumentException($"Parameter is null in {page.Name}!");
-
-                    if (!page.PathToList.Any())
-                        throw new ArgumentException($"Path to list is empty in {page.Name}.");
-                    if (!page.ParametersList.Any())
-                        throw new ArgumentException($"Parameters list is empty in {page.Name}.");
                     if (string.IsNullOrEmpty(page.SiteLink))
                         throw new ArgumentException($"Site link is empty in {page.Name}.");
-                    if (string.IsNullOrEmpty(page.ListingsElementNameInList))
-                        throw new ArgumentException($"Listing name is empty in {page.Name}.");
-
-                    foreach (var path in page.PathToList)
-                    {
-                        if (string.IsNullOrEmpty(path.Name))
-                            throw new ArgumentException($"One of paths to the list is empty.");
-                    }
-
-                    foreach (var param in page.ParametersList)
-                    {
-                        var Elements = ElementInfo.ConvertToElementsInfo(param.FullPath);
-                        if (!Elements.Any())
-                            throw new ArgumentException($"Can't find path to parameter '{param.ParameterName}' in page {page.Name}");
-                        foreach (var element in Elements)
-                        {
-                            if (string.IsNullOrEmpty(element.Name))
-                                throw new ArgumentException($"Error in path to parameter '{param.ParameterName}' in page {page.Name}");
-                        }
-                    }
                 }
                 catch (Exception exception)
                 {
@@ -115,6 +87,34 @@ namespace SiteMonitorings.Worker
             WhenFound?.Invoke(this, parameters);
         }
 
+        private void ValidateParams(PageSettings page)
+        {
+            if (page.PathToList == null || !page.PathToList.Any())
+                throw new ArgumentException($"Path to list is empty in {page.Name}.");
+            foreach (var path in page.PathToList)
+            {
+                if (string.IsNullOrEmpty(path.Name))
+                    throw new ArgumentException($"One of paths to the list is empty.");
+            }
+
+            if (page.ParametersList == null || !page.ParametersList.Any())
+                throw new ArgumentException($"Parameters list is empty in {page.Name}.");
+            foreach (var param in page.ParametersList)
+            {
+                var Elements = ElementInfo.ConvertToElementsInfo(param.FullPath);
+                if (!Elements.Any())
+                    throw new ArgumentException($"Can't find path to parameter '{param.ParameterName}' in page {page.Name}");
+                foreach (var element in Elements)
+                {
+                    if (string.IsNullOrEmpty(element.Name))
+                        throw new ArgumentException($"Error in path to parameter '{param.ParameterName}' in page {page.Name}");
+                }
+            }
+
+            if (string.IsNullOrEmpty(page.ListingsElementNameInList))
+                throw new ArgumentException($"Listing name is empty in {page.Name}.");
+        }
+
         private void WorkerThread(WorkMode mode, List<PageSettings> pageSettings, Mutex parametersChangingMutex)
         {
             WebDriverHelper webDriverHelper = null;
@@ -144,8 +144,9 @@ namespace SiteMonitorings.Worker
                             {
                                 try
                                 {
-                                    IWebElement list = null;
+                                    ValidateParams(page);
 
+                                    IWebElement list = null;
                                     try
                                     {
                                         list = GetElement(webDriverHelper, page.PathToList);

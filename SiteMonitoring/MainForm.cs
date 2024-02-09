@@ -340,7 +340,7 @@ namespace SiteMonitorings.UI
         {
             if (tabControl.SelectedIndex == -1)
             {
-                MessageBox.Show("Can't rename tab", "No tabs", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Can't test tab", "No tabs", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
 
