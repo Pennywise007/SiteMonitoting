@@ -128,6 +128,12 @@ namespace SiteMonitorings.Worker
                     }
                     catch (Exception exception)
                     {
+                        switch (exception)
+                        {
+                            case ThreadInterruptedException _:
+                            case ThreadAbortException _:
+                                throw;
+                        }
                         OnError($"Failed to create a web driver\": {exception.Message}");
                         continue;
                     }
@@ -155,6 +161,12 @@ namespace SiteMonitorings.Worker
                                     }
                                     catch (Exception exception)
                                     {
+                                        switch (exception)
+                                        {
+                                            case ThreadInterruptedException _:
+                                            case ThreadAbortException _:
+                                                throw;
+                                        }
                                         throw new Exception("Failed to get list with listings " + exception.Message);
                                     }
 
@@ -162,8 +174,15 @@ namespace SiteMonitorings.Worker
 
                                     break;
                                 }
-                                catch (Exception)
+                                catch (Exception exception)
                                 {
+                                    switch (exception)
+                                    {
+                                        case ThreadInterruptedException _:
+                                        case ThreadAbortException _:
+                                            throw;
+                                    }
+
                                     if (i == 2)
                                         throw;
 
@@ -173,6 +192,12 @@ namespace SiteMonitorings.Worker
                         }
                         catch (Exception exception)
                         {
+                            switch (exception)
+                            {
+                                case ThreadInterruptedException _:
+                                case ThreadAbortException _:
+                                    throw;
+                            }
                             OnError($"Error during execution for {page.Name}: {exception.Message}");
                         }
                         finally
@@ -183,6 +208,12 @@ namespace SiteMonitorings.Worker
                             }
                             catch (Exception exception)
                             {
+                                switch (exception)
+                                {
+                                    case ThreadInterruptedException _:
+                                    case ThreadAbortException _:
+                                        throw;
+                                }
                                 OnError($"Can't close chrome driver for {page.Name}: {exception.Message}");
                             }
                         }
@@ -194,6 +225,12 @@ namespace SiteMonitorings.Worker
                     }
                     catch (Exception exception)
                     {
+                        switch (exception)
+                        {
+                            case ThreadInterruptedException _:
+                            case ThreadAbortException _:
+                                throw;
+                        }
                         OnError($"Can't quit chrome {exception.Message}");
                     }
                 } while (WaitForNextExecution(mode));
@@ -235,8 +272,14 @@ namespace SiteMonitorings.Worker
                     webDriverHelper.Driver = WebDriverHelper.CreateWebDriver();
                     return webDriverHelper;
                 }
-                catch (Exception)
+                catch (Exception exception)
                 {
+                    switch (exception)
+                    {
+                        case ThreadInterruptedException _:
+                        case ThreadAbortException _:
+                            throw;
+                    }
                     if (++attempt == maxAttempts)
                     {
                         throw;
@@ -284,6 +327,12 @@ namespace SiteMonitorings.Worker
                 }
                 catch (Exception ex)
                 {
+                    switch (ex)
+                    {
+                        case ThreadInterruptedException _:
+                        case ThreadAbortException _:
+                            throw;
+                    }
                     if (param.action == ExecutionType.eInterruptIfNotExistOrTextNotEqual)
                         return;
 
@@ -331,6 +380,12 @@ namespace SiteMonitorings.Worker
             }
             catch (Exception exception)
             {
+                switch (exception)
+                {
+                    case ThreadInterruptedException _:
+                    case ThreadAbortException _:
+                        throw;
+                }
                 throw new Exception("Can't find listings in list, check listing name.\nError: " + exception.Message);
             }
 
@@ -400,6 +455,12 @@ namespace SiteMonitorings.Worker
                 }
                 catch (Exception exception)
                 {
+                    switch (exception)
+                    {
+                        case ThreadInterruptedException _:
+                        case ThreadAbortException _:
+                            throw;
+                    }
                     content = "Error:\"" + exception.Message + "\"";
                 }
                 result.Add(new ParameterResult { ParameterName = param.ParameterName, Content = content });
