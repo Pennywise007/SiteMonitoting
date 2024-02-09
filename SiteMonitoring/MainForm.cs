@@ -29,6 +29,8 @@ namespace SiteMonitorings.UI
         private readonly IMonitoringWorker _advertisementsWorker;
         private readonly IServiceProvider _serviceProvider;
 
+        private IMonitoringWorker _testWorker;
+
         public MainForm(IMonitoringWorker worker, IServiceProvider serviceProvider)
         {
             saveTimer.Elapsed += new ElapsedEventHandler(OnSaveTimer);
@@ -48,7 +50,7 @@ namespace SiteMonitorings.UI
 
             WorkModeDetails.SetupWorkMode(ref WorkModeComboBox);
 
-            InitializeWorker();
+            SetCallbacks();
 
             PageSettings initialSettings = new PageSettings();
             initialSettings.Name = "Pararius";
@@ -105,7 +107,7 @@ namespace SiteMonitorings.UI
         /// <summary>
         /// Initialize worker and add subscription to events
         /// </summary>
-        private void InitializeWorker()
+        private void SetCallbacks()
         {
             _advertisementsWorker.WhenFinish += OnFinish;
             _advertisementsWorker.WhenError += OnError;
@@ -217,14 +219,16 @@ namespace SiteMonitorings.UI
             SaveSettings();
             parametersChangingMutex.ReleaseMutex();
         }
+
         private void Run_Click(object sender, EventArgs e)
         {
-            if (_advertisementsWorker.IsWorking())
+            var currentWorker = _testWorker ?? _advertisementsWorker;
+            if (currentWorker.IsWorking())
             {
                 Run.Enabled = false;
                 Run.Text = "Прерываем...";
 
-                _advertisementsWorker.Interrupt();
+                currentWorker.Interrupt();
                 return;
             }
 
@@ -344,40 +348,6 @@ namespace SiteMonitorings.UI
                 return;
             }
 
-            var worker = _serviceProvider.GetRequiredService<IMonitoringWorker>();
-
-            string result = "";
-            worker.WhenFinish += (object s, string error) =>
-            {
-                Invoke(new MethodInvoker(() =>
-                {
-                    EnableControls(false);
-                    if (!string.IsNullOrEmpty(error))
-                        MessageBox.Show(this, error, "Выполнено, но во время работы возникли ошибки", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    else
-                        MessageBox.Show(this, result, "Результат теста", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }));
-            };
-            worker.WhenError += (object s, string error) =>
-            {
-                Invoke(new MethodInvoker(() =>
-                {
-                    MessageBox.Show(this, error, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }));
-            };
-            worker.WhenFound += (object s, ListingInfo info) =>
-            {
-                Invoke(new MethodInvoker(() =>
-                {
-                    foreach (var par in info.Parameters)
-                    {
-                        result += $"{par.ParameterName}: {par.Content}\n";
-                    }
-                    result += "\n\n";
-                }));
-            };
-            EnableControls(true);
-
             var activePage = tabControl.TabPages[tabControl.SelectedIndex];
 
             PageSettings settings = null;
@@ -405,7 +375,42 @@ namespace SiteMonitorings.UI
                 return;
             }
 
-            worker.Start(new System.Collections.Generic.List<PageSettings>
+            _testWorker = _serviceProvider.GetRequiredService<IMonitoringWorker>();
+
+            string result = "";
+            _testWorker.WhenFinish += (object s, string error) =>
+            {
+                Invoke(new MethodInvoker(() =>
+                {
+                    _testWorker = null;
+                    EnableControls(false);
+                    if (!string.IsNullOrEmpty(error))
+                        MessageBox.Show(this, error, "Выполнено, но во время работы возникли ошибки", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    else
+                        MessageBox.Show(this, result, "Результат теста", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }));
+            };
+            _testWorker.WhenError += (object s, string error) =>
+            {
+                Invoke(new MethodInvoker(() =>
+                {
+                    MessageBox.Show(this, error, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }));
+            };
+            _testWorker.WhenFound += (object s, ListingInfo info) =>
+            {
+                Invoke(new MethodInvoker(() =>
+                {
+                    foreach (var par in info.Parameters)
+                    {
+                        result += $"{par.ParameterName}: {par.Content}\n";
+                    }
+                    result += "\n\n";
+                }));
+            };
+            EnableControls(true);
+
+            _testWorker.Start(new System.Collections.Generic.List<PageSettings>
             {
                 settings
             }, new Mutex(), WorkMode.eOnes);
