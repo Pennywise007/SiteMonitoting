@@ -83,7 +83,7 @@ HWND FindMainWindowOfExe(CString exeName)
 
 bool AnotherAppIsRunning()
 {
-	const std::wstring exeName = std::filesystem::get_exe_name().c_str();
+	const std::wstring exeName = std::filesystem::get_binary_name().c_str();
 
 	static CMutex m_RunOnceMutex(FALSE, exeName.c_str());
 	static CSingleLock m_RunOnceLock(&m_RunOnceMutex);
