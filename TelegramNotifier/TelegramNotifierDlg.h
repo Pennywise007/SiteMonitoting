@@ -48,7 +48,7 @@ private:
 	void SendMessageToUsers(const CString& text);
 
 private:
-	Settings& m_settings = ext::get_service<Settings>();
+	Settings& m_settings = ext::get_singleton<Settings>();
 	ITelegramThreadPtr m_telegramThread;
 
 public:

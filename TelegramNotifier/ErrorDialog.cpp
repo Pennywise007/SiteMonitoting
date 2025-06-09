@@ -40,3 +40,9 @@ void ErrorDialog::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(ErrorDialog, CDialogEx)
 END_MESSAGE_MAP()
+
+void ErrorDialog::OnOK()
+{
+	m_errorEdit.SetWindowTextW(L"");
+	CDialogEx::OnOK();
+}

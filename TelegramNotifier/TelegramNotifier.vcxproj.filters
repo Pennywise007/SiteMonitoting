@@ -56,9 +56,6 @@
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\packages\pugixml.1.12.0\build\native\include\pugixml.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ErrorDialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

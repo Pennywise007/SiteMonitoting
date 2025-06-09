@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <ext/core/singleton.h>
 #include <ext/std/filesystem.h>
@@ -6,15 +6,22 @@
 
 #include "TelegramThread.h"
 
-class Settings : private ext::serializable::SerializableObject<Settings>
+class Settings
 {
     friend ext::Singleton<Settings>;
     Settings()
     {
-        using namespace ext::serializer;
         try
         {
-            Executor::DeserializeObject(Factory::XMLDeserializer(get_settings_path()), this);
+            std::wifstream file(get_settings_path());
+            EXT_CHECK(file.is_open()) << "Failed to open settings file";
+            EXT_DEFER(file.close());
+
+            std::wstringstream buffer;
+            buffer << file.rdbuf();
+
+            std::wstring json = buffer.str();
+            ext::serializer::DeserializeFromJson(*this, json);
         }
         catch (...)
         {
@@ -31,7 +38,7 @@ private:
         const static auto result = []()
         {
             std::wstring exeName = std::filesystem::get_binary_name().c_str();
-            exeName = exeName.substr(0, exeName.rfind('.')) + L".xml";
+            exeName = exeName.substr(0, exeName.rfind('.')) + L".json";
             return std::filesystem::get_exe_directory() / exeName;
         }();
         return result;
@@ -40,17 +47,23 @@ private:
 public:
     void Store()
     {
-        using namespace ext::serializer;
         try
         {
-            Executor::SerializeObject(Factory::XMLSerializer(get_settings_path()), this);
+            std::wstring json;
+            ext::serializer::SerializeToJson(*this, json);
+
+            std::wofstream file(get_settings_path());
+            EXT_CHECK(file.is_open()) << "Failed to open settings file";
+            EXT_DEFER(file.close());
+
+            file << json;
         }
         catch (...)
         {
         }
     }
 
-    struct User : private ext::serializable::SerializableObject<User>
+    struct User
     {
         User() noexcept = default;
         User(const TgBot::User::Ptr& user) noexcept
@@ -59,10 +72,15 @@ public:
             firstName = getUNICODEString(user->firstName);
             userName = getUNICODEString(user->username);
         }
+
+        REGISTER_SERIALIZABLE_OBJECT();
+
         DECLARE_SERIALIZABLE_FIELD(std::int64_t, id);
         DECLARE_SERIALIZABLE_FIELD(std::wstring, firstName);
         DECLARE_SERIALIZABLE_FIELD(std::wstring, userName);
     };
+
+    REGISTER_SERIALIZABLE_OBJECT();
 
     DECLARE_SERIALIZABLE_FIELD(std::wstring, token);
     DECLARE_SERIALIZABLE_FIELD(std::wstring, password);

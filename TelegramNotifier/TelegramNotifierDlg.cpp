@@ -204,6 +204,8 @@ void CTelegramNotifierDlg::OnBnClickedButtonRun()
 		return;
 	}
 
+	StoreParameters();
+
 	onExecute(true);
 
 	m_telegramThread = CreateTelegramThread(std::narrow(m_settings.token).c_str(),
@@ -214,8 +216,6 @@ void CTelegramNotifierDlg::OnBnClickedButtonRun()
 					errorDialog->ShowWindow(error);
 				});
 		});
-
-	StoreParameters();
 
 	const auto onMessage = [pass = m_settings.password, telegramThread = m_telegramThread]
 		(const MessagePtr& commandMessage)
@@ -229,7 +229,7 @@ void CTelegramNotifierDlg::OnBnClickedButtonRun()
 
 			ext::InvokeMethodAsync([telegramThread, pUser = commandMessage->from]()
 				{
-					auto& settings = ext::get_service<Settings>();
+					auto& settings = ext::get_singleton<Settings>();
 
 					auto& users = settings.registeredUsers;
 					const bool exist = std::any_of(users.begin(), users.end(),
@@ -269,7 +269,7 @@ void CTelegramNotifierDlg::OnBnClickedButtonSendMessage()
 	SendMessageToUsers(text);
 
 	MessageBox(std::string_swprintf(L"Message sent to %u users", m_settings.registeredUsers.size()).c_str(),
-		L"Can't send message", MB_ICONERROR);
+		L"Message sent", MB_ICONINFORMATION);
 }
 
 BOOL CTelegramNotifierDlg::PreTranslateMessage(MSG* pMsg)

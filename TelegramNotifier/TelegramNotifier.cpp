@@ -106,7 +106,7 @@ bool AnotherAppIsRunning()
 
 		std::wstring commandLine = GetCommandLine();
 		COPYDATASTRUCT data = { 0 };
-		data.cbData = (commandLine.size() + 1) * sizeof(wchar_t);
+		data.cbData = DWORD((commandLine.size() + 1) * sizeof(wchar_t));
 		data.lpData = reinterpret_cast<PVOID>(commandLine.data());
 		SendMessage(handle, WM_COPYDATA, reinterpret_cast<WPARAM>(handle), reinterpret_cast<LPARAM>(&data));
 	}
