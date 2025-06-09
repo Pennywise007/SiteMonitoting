@@ -159,6 +159,17 @@ namespace WebTest.UI
             {
                 return context.FindElement(By.XPath($"./*[{index}]"));
             }
+            else if (XPath.EndsWith("]") && XPath.Contains("[") && int.TryParse(XPath.Substring(XPath.LastIndexOf('[') + 1, XPath.Length - XPath.LastIndexOf('[') - 2), out index))
+            {
+                // XPath with [%d] in the end. We get all elements and find the one with the specified index
+                var results = context.FindElements(By.XPath(XPath.Substring(0, XPath.LastIndexOf('['))));
+                if (index < 0 || index >= results.Count)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(index), "Index is out of range for the found elements.");
+                }
+
+                return results[index];
+            }
             else
             {
                 return context.FindElement(By.XPath(XPath));
@@ -279,6 +290,11 @@ namespace WebTest.UI
             updateElementXPathFromLabel(labelUseIndex);
         }
 
+        private void buttonUseXPathIndex_Click(object sender, EventArgs e)
+        {
+            updateElementXPathFromLabel(labelXPathIndex);
+        }
+
         private void updateElementXPathFromLabel(Label label)
         {
             textBoxXPath.Text = label.Text;
@@ -334,6 +350,8 @@ namespace WebTest.UI
             var bindingSource = (BindingSource)pathTable.DataSource;
             var bindingList = (SiteMonitorings.UI.SortableBindingList<PathInfo>)bindingSource.DataSource;
             bindingList.Add(new PathInfo { Path = textBoxXPath.Text });
+
+            textBoxXPath.Text = "";
 
             parametersChangingMutex.ReleaseMutex();
         }

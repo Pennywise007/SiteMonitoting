@@ -37,6 +37,8 @@
             this.buttonClose = new MetroFramework.Controls.MetroButton();
             this.label1 = new MetroFramework.Controls.MetroLabel();
             this.pathTable = new MetroFramework.Controls.MetroGrid();
+            this.pathDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PathInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.label2 = new MetroFramework.Controls.MetroLabel();
             this.label3 = new MetroFramework.Controls.MetroLabel();
             this.labelClassName = new MetroFramework.Controls.MetroLabel();
@@ -57,6 +59,9 @@
             this.buttonUseAttrValueContains = new MetroFramework.Controls.MetroButton();
             this.buttonUseTextContains = new MetroFramework.Controls.MetroButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.buttonUseIndex = new MetroFramework.Controls.MetroButton();
+            this.labelUseIndex = new MetroFramework.Controls.MetroLabel();
+            this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
             this.buttonAddXPath = new MetroFramework.Controls.MetroButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.textBoxElementLink = new System.Windows.Forms.TextBox();
@@ -71,21 +76,19 @@
             this.textBoxUrl = new System.Windows.Forms.TextBox();
             this.textBoxXPath = new System.Windows.Forms.TextBox();
             this.buttonCheck = new MetroFramework.Controls.MetroButton();
-            this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
-            this.labelUseIndex = new MetroFramework.Controls.MetroLabel();
-            this.buttonUseIndex = new MetroFramework.Controls.MetroButton();
-            this.pathDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PathInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
+            this.labelXPathIndex = new MetroFramework.Controls.MetroLabel();
+            this.buttonUseXPathIndex = new MetroFramework.Controls.MetroButton();
             ((System.ComponentModel.ISupportInitialize)(this.pathTable)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PathInfoBindingSource)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PathInfoBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonOpenUrl
             // 
             this.buttonOpenUrl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonOpenUrl.Location = new System.Drawing.Point(699, 58);
+            this.buttonOpenUrl.Location = new System.Drawing.Point(850, 58);
             this.buttonOpenUrl.Name = "buttonOpenUrl";
             this.buttonOpenUrl.Size = new System.Drawing.Size(42, 20);
             this.buttonOpenUrl.TabIndex = 4;
@@ -96,7 +99,7 @@
             // buttonClose
             // 
             this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonClose.Location = new System.Drawing.Point(747, 57);
+            this.buttonClose.Location = new System.Drawing.Point(898, 57);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(48, 20);
             this.buttonClose.TabIndex = 27;
@@ -161,14 +164,25 @@
             this.pathTable.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.pathTable.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.pathTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.pathTable.Size = new System.Drawing.Size(773, 180);
+            this.pathTable.Size = new System.Drawing.Size(924, 217);
             this.pathTable.TabIndex = 29;
+            // 
+            // pathDataGridViewTextBoxColumn
+            // 
+            this.pathDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.pathDataGridViewTextBoxColumn.DataPropertyName = "Path";
+            this.pathDataGridViewTextBoxColumn.HeaderText = "XPath";
+            this.pathDataGridViewTextBoxColumn.Name = "pathDataGridViewTextBoxColumn";
+            // 
+            // PathInfoBindingSource
+            // 
+            this.PathInfoBindingSource.DataSource = typeof(WebTest.Settings.PathInfo);
             // 
             // label2
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(22, 271);
+            this.label2.Location = new System.Drawing.Point(21, 308);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(93, 19);
             this.label2.TabIndex = 30;
@@ -345,6 +359,9 @@
             // groupBox1
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox1.Controls.Add(this.buttonUseXPathIndex);
+            this.groupBox1.Controls.Add(this.labelXPathIndex);
+            this.groupBox1.Controls.Add(this.metroLabel2);
             this.groupBox1.Controls.Add(this.buttonUseIndex);
             this.groupBox1.Controls.Add(this.labelUseIndex);
             this.groupBox1.Controls.Add(this.metroLabel1);
@@ -366,17 +383,45 @@
             this.groupBox1.Controls.Add(this.labelAttrValueContains);
             this.groupBox1.Controls.Add(this.labelTextContains);
             this.groupBox1.Controls.Add(this.label13);
-            this.groupBox1.Location = new System.Drawing.Point(22, 299);
+            this.groupBox1.Location = new System.Drawing.Point(21, 336);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(439, 193);
+            this.groupBox1.Size = new System.Drawing.Size(439, 210);
             this.groupBox1.TabIndex = 51;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "XPath examples";
             // 
+            // buttonUseIndex
+            // 
+            this.buttonUseIndex.Location = new System.Drawing.Point(385, 160);
+            this.buttonUseIndex.Name = "buttonUseIndex";
+            this.buttonUseIndex.Size = new System.Drawing.Size(39, 20);
+            this.buttonUseIndex.TabIndex = 53;
+            this.buttonUseIndex.Text = "Use";
+            this.buttonUseIndex.UseSelectable = true;
+            this.buttonUseIndex.Click += new System.EventHandler(this.buttonUseIndex_Click);
+            // 
+            // labelUseIndex
+            // 
+            this.labelUseIndex.AutoSize = true;
+            this.labelUseIndex.Location = new System.Drawing.Point(154, 160);
+            this.labelUseIndex.Name = "labelUseIndex";
+            this.labelUseIndex.Size = new System.Drawing.Size(56, 19);
+            this.labelUseIndex.TabIndex = 52;
+            this.labelUseIndex.Text = "[{index}]";
+            // 
+            // metroLabel1
+            // 
+            this.metroLabel1.AutoSize = true;
+            this.metroLabel1.Location = new System.Drawing.Point(6, 160);
+            this.metroLabel1.Name = "metroLabel1";
+            this.metroLabel1.Size = new System.Drawing.Size(89, 19);
+            this.metroLabel1.TabIndex = 51;
+            this.metroLabel1.Text = "By child index";
+            // 
             // buttonAddXPath
             // 
             this.buttonAddXPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonAddXPath.Location = new System.Drawing.Point(709, 271);
+            this.buttonAddXPath.Location = new System.Drawing.Point(859, 308);
             this.buttonAddXPath.Name = "buttonAddXPath";
             this.buttonAddXPath.Size = new System.Drawing.Size(86, 23);
             this.buttonAddXPath.TabIndex = 52;
@@ -397,9 +442,9 @@
             this.groupBox2.Controls.Add(this.label17);
             this.groupBox2.Controls.Add(this.label16);
             this.groupBox2.Controls.Add(this.label15);
-            this.groupBox2.Location = new System.Drawing.Point(467, 299);
+            this.groupBox2.Location = new System.Drawing.Point(466, 336);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(328, 193);
+            this.groupBox2.Size = new System.Drawing.Size(479, 193);
             this.groupBox2.TabIndex = 55;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Element info";
@@ -412,16 +457,16 @@
             this.textBoxElementLink.Multiline = true;
             this.textBoxElementLink.Name = "textBoxElementLink";
             this.textBoxElementLink.ReadOnly = true;
-            this.textBoxElementLink.Size = new System.Drawing.Size(176, 37);
+            this.textBoxElementLink.Size = new System.Drawing.Size(327, 37);
             this.textBoxElementLink.TabIndex = 61;
             // 
             // textBoxElementChilden
             // 
             this.textBoxElementChilden.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxElementChilden.Location = new System.Drawing.Point(73, 134);
+            this.textBoxElementChilden.Location = new System.Drawing.Point(73, 118);
             this.textBoxElementChilden.Name = "textBoxElementChilden";
             this.textBoxElementChilden.ReadOnly = true;
-            this.textBoxElementChilden.Size = new System.Drawing.Size(240, 20);
+            this.textBoxElementChilden.Size = new System.Drawing.Size(391, 20);
             this.textBoxElementChilden.TabIndex = 60;
             // 
             // textBoxElementText
@@ -431,7 +476,7 @@
             this.textBoxElementText.Location = new System.Drawing.Point(73, 49);
             this.textBoxElementText.Name = "textBoxElementText";
             this.textBoxElementText.ReadOnly = true;
-            this.textBoxElementText.Size = new System.Drawing.Size(240, 20);
+            this.textBoxElementText.Size = new System.Drawing.Size(391, 20);
             this.textBoxElementText.TabIndex = 59;
             // 
             // textBoxElementPosition
@@ -441,13 +486,13 @@
             this.textBoxElementPosition.Location = new System.Drawing.Point(73, 21);
             this.textBoxElementPosition.Name = "textBoxElementPosition";
             this.textBoxElementPosition.ReadOnly = true;
-            this.textBoxElementPosition.Size = new System.Drawing.Size(240, 20);
+            this.textBoxElementPosition.Size = new System.Drawing.Size(391, 20);
             this.textBoxElementPosition.TabIndex = 58;
             // 
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(12, 127);
+            this.label18.Location = new System.Drawing.Point(13, 119);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(58, 19);
             this.label18.TabIndex = 57;
@@ -456,7 +501,7 @@
             // buttonOpenLink
             // 
             this.buttonOpenLink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonOpenLink.Location = new System.Drawing.Point(255, 75);
+            this.buttonOpenLink.Location = new System.Drawing.Point(406, 75);
             this.buttonOpenLink.Name = "buttonOpenLink";
             this.buttonOpenLink.Size = new System.Drawing.Size(58, 37);
             this.buttonOpenLink.TabIndex = 56;
@@ -496,7 +541,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxUrl.Location = new System.Drawing.Point(98, 58);
             this.textBoxUrl.Name = "textBoxUrl";
-            this.textBoxUrl.Size = new System.Drawing.Size(595, 20);
+            this.textBoxUrl.Size = new System.Drawing.Size(746, 20);
             this.textBoxUrl.TabIndex = 56;
             // 
             // textBoxXPath
@@ -504,15 +549,15 @@
             this.textBoxXPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxXPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxXPath.Location = new System.Drawing.Point(121, 269);
+            this.textBoxXPath.Location = new System.Drawing.Point(120, 306);
             this.textBoxXPath.Name = "textBoxXPath";
-            this.textBoxXPath.Size = new System.Drawing.Size(526, 24);
+            this.textBoxXPath.Size = new System.Drawing.Size(677, 24);
             this.textBoxXPath.TabIndex = 57;
             // 
             // buttonCheck
             // 
             this.buttonCheck.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCheck.Location = new System.Drawing.Point(653, 271);
+            this.buttonCheck.Location = new System.Drawing.Point(803, 308);
             this.buttonCheck.Name = "buttonCheck";
             this.buttonCheck.Size = new System.Drawing.Size(50, 23);
             this.buttonCheck.TabIndex = 58;
@@ -520,50 +565,39 @@
             this.buttonCheck.UseSelectable = true;
             this.buttonCheck.Click += new System.EventHandler(this.buttonCheck_Click);
             // 
-            // metroLabel1
+            // metroLabel2
             // 
-            this.metroLabel1.AutoSize = true;
-            this.metroLabel1.Location = new System.Drawing.Point(6, 160);
-            this.metroLabel1.Name = "metroLabel1";
-            this.metroLabel1.Size = new System.Drawing.Size(89, 19);
-            this.metroLabel1.TabIndex = 51;
-            this.metroLabel1.Text = "By child index";
+            this.metroLabel2.AutoSize = true;
+            this.metroLabel2.Location = new System.Drawing.Point(6, 184);
+            this.metroLabel2.Name = "metroLabel2";
+            this.metroLabel2.Size = new System.Drawing.Size(108, 19);
+            this.metroLabel2.TabIndex = 54;
+            this.metroLabel2.Text = "By XPath + Index";
             // 
-            // labelUseIndex
+            // labelXPathIndex
             // 
-            this.labelUseIndex.AutoSize = true;
-            this.labelUseIndex.Location = new System.Drawing.Point(154, 160);
-            this.labelUseIndex.Name = "labelUseIndex";
-            this.labelUseIndex.Size = new System.Drawing.Size(56, 19);
-            this.labelUseIndex.TabIndex = 52;
-            this.labelUseIndex.Text = "[{index}]";
+            this.labelXPathIndex.AutoSize = true;
+            this.labelXPathIndex.Location = new System.Drawing.Point(154, 185);
+            this.labelXPathIndex.Name = "labelXPathIndex";
+            this.labelXPathIndex.Size = new System.Drawing.Size(97, 19);
+            this.labelXPathIndex.TabIndex = 55;
+            this.labelXPathIndex.Text = "{XPath}[{index}]";
             // 
-            // buttonUseIndex
+            // buttonUseXPathIndex
             // 
-            this.buttonUseIndex.Location = new System.Drawing.Point(385, 160);
-            this.buttonUseIndex.Name = "buttonUseIndex";
-            this.buttonUseIndex.Size = new System.Drawing.Size(39, 20);
-            this.buttonUseIndex.TabIndex = 53;
-            this.buttonUseIndex.Text = "Use";
-            this.buttonUseIndex.UseSelectable = true;
-            this.buttonUseIndex.Click += new System.EventHandler(this.buttonUseIndex_Click);
-            // 
-            // pathDataGridViewTextBoxColumn
-            // 
-            this.pathDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.pathDataGridViewTextBoxColumn.DataPropertyName = "Path";
-            this.pathDataGridViewTextBoxColumn.HeaderText = "XPath";
-            this.pathDataGridViewTextBoxColumn.Name = "pathDataGridViewTextBoxColumn";
-            // 
-            // PathInfoBindingSource
-            // 
-            this.PathInfoBindingSource.DataSource = typeof(WebTest.Settings.PathInfo);
+            this.buttonUseXPathIndex.Location = new System.Drawing.Point(385, 184);
+            this.buttonUseXPathIndex.Name = "buttonUseXPathIndex";
+            this.buttonUseXPathIndex.Size = new System.Drawing.Size(39, 20);
+            this.buttonUseXPathIndex.TabIndex = 56;
+            this.buttonUseXPathIndex.Text = "Use";
+            this.buttonUseXPathIndex.UseSelectable = true;
+            this.buttonUseXPathIndex.Click += new System.EventHandler(this.buttonUseXPathIndex_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(818, 507);
+            this.ClientSize = new System.Drawing.Size(969, 569);
             this.Controls.Add(this.buttonCheck);
             this.Controls.Add(this.textBoxXPath);
             this.Controls.Add(this.textBoxUrl);
@@ -582,11 +616,11 @@
             this.Text = "Websites checker";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.pathTable)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PathInfoBindingSource)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PathInfoBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -636,6 +670,9 @@
         private MetroFramework.Controls.MetroLabel metroLabel1;
         private MetroFramework.Controls.MetroButton buttonUseIndex;
         private MetroFramework.Controls.MetroLabel labelUseIndex;
+        private MetroFramework.Controls.MetroButton buttonUseXPathIndex;
+        private MetroFramework.Controls.MetroLabel labelXPathIndex;
+        private MetroFramework.Controls.MetroLabel metroLabel2;
     }
 }
 
