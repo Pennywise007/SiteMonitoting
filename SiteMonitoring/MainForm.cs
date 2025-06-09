@@ -58,17 +58,17 @@ namespace SiteMonitorings.UI
             initialSettings.ListingsElementNameInList = "search-list__item search-list__item--listing";
             initialSettings.PathToList.Add(new ElementInfo { Type = ElementInfo.ElementType.Class, Name = "search-list" });
             initialSettings.ParametersList.Add(new Settings.ParameterInfo
-            { 
+            {
                 Type = ElementInfo.ElementType.Link,
                 ParameterName = "link",
                 FullPath = "listing-search-item__link listing-search-item__link--depiction"
             });
-            initialSettings.ParametersList.Add(new Settings.ParameterInfo { 
+            initialSettings.ParametersList.Add(new Settings.ParameterInfo {
                 Type = ElementInfo.ElementType.Text,
                 ParameterName = "area",
                 FullPath = "illustrated-features__item illustrated-features__item--surface-area"
             });
-            initialSettings.ParametersList.Add(new Settings.ParameterInfo { 
+            initialSettings.ParametersList.Add(new Settings.ParameterInfo {
                 Type = ElementInfo.ElementType.Text,
                 ParameterName = "price",
                 FullPath = "listing-search-item__price"
@@ -288,7 +288,7 @@ namespace SiteMonitorings.UI
         private void AddPage(PageSettings settings)
         {
             var tabPage = new MetroFramework.Controls.MetroTabPage();
-            
+
             tabControl.Controls.Add(tabPage);
 
             SiteInformation page = new SiteInformation(settings, tabPage)
@@ -413,7 +413,7 @@ namespace SiteMonitorings.UI
             _testWorker.Start(new System.Collections.Generic.List<PageSettings>
             {
                 settings
-            }, new Mutex(), WorkMode.eOnes);
+            }, new Mutex(), WorkMode.eTestMode);
         }
     }
     static class Globals

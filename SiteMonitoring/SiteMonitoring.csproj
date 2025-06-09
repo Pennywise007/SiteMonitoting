@@ -36,7 +36,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>$(SolutionDir)Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -45,7 +45,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>$(SolutionDir)Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -224,8 +224,11 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>echo copy exe "$(TargetDir)*.exe" "$(SolutionDir)$(ConfigurationName)\"
-xcopy /C /q /s /y /i  "$(TargetDir)*.exe" "$(SolutionDir)$(ConfigurationName)\"</PostBuildEvent>
+    <PostBuildEvent>echo copy dll "$(TargetDir)*.dll" "$(SolutionDir)$(ConfigurationName)\"
+xcopy /C /q /s /y /i  "$(TargetDir)*.dll" "$(SolutionDir)x64\$(ConfigurationName)\"
+
+echo copy exe "$(TargetDir)*.exe" "$(SolutionDir)$(ConfigurationName)\"
+xcopy /C /q /s /y /i  "$(TargetDir)*.exe" "$(SolutionDir)x64\$(ConfigurationName)\"</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\Selenium.WebDriver.4.17.0\build\Selenium.WebDriver.targets" Condition="Exists('..\packages\Selenium.WebDriver.4.17.0\build\Selenium.WebDriver.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

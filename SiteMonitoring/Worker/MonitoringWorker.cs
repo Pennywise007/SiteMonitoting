@@ -1,22 +1,23 @@
-﻿using System;
+﻿using AngleSharp.Dom;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
+using SiteMonitorings.Settings;
+using SiteMonitorings.WebDriver;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using SiteMonitorings.WebDriver;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
-using SiteMonitorings.Settings;
-using AngleSharp.Dom;
 using System.Xml.Linq;
-using System.Collections.ObjectModel;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using System.Diagnostics.Contracts;
 using static SiteMonitorings.Settings.ExecutionInfo;
+using static System.Net.Mime.MediaTypeNames;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace SiteMonitorings.Worker
 {
@@ -204,7 +205,10 @@ namespace SiteMonitorings.Worker
                         {
                             try
                             {
-                                webDriverHelper.CloseCurrentTab();
+                                if (mode != WorkMode.eTestMode)
+                                {
+                                    webDriverHelper.CloseCurrentTab();
+                                }
                             }
                             catch (Exception exception)
                             {
@@ -221,7 +225,10 @@ namespace SiteMonitorings.Worker
 
                     try
                     {
-                        webDriverHelper.Driver.Quit();
+                        if (mode != WorkMode.eTestMode)
+                        {
+                            webDriverHelper.Driver.Quit();
+                        }
                     }
                     catch (Exception exception)
                     {
@@ -248,15 +255,15 @@ namespace SiteMonitorings.Worker
             }
             finally
             {
+                WhenFinish?.Invoke(this, null);
+
                 try
                 {
                     webDriverHelper?.Driver.Quit();
                 }
-                catch (Exception exception)
+                catch (Exception)
                 {
-                    OnError(exception.ToString());
                 }
-                WhenFinish?.Invoke(this, null);
             }
         }
 
@@ -368,13 +375,23 @@ namespace SiteMonitorings.Worker
 
             try
             {
-                listElements = listElement.FindElements(ElementInfo.GetBy(ElementInfo.ElementType.Class,
-                                                                          pageSettings.ListingsElementNameInList));
-                if (listElements == null || !listElements.Any())
+                var name = pageSettings.ListingsElementNameInList;
+                if (name.StartsWith(".//") || name.StartsWith("//") || name.StartsWith("./*"))
                 {
-                    listElements = listElement.FindElements(ElementInfo.GetBy(ElementInfo.ElementType.ClassContains,
-                                                                              pageSettings.ListingsElementNameInList));
+                    listElements = listElement.FindElements(ElementInfo.GetBy(ElementInfo.ElementType.XPath,
+                                                                         pageSettings.ListingsElementNameInList));
                 }
+                else
+                {
+                    listElements = listElement.FindElements(ElementInfo.GetBy(ElementInfo.ElementType.Class,
+                                                                          pageSettings.ListingsElementNameInList));
+                    if (listElements == null || !listElements.Any())
+                    {
+                        listElements = listElement.FindElements(ElementInfo.GetBy(ElementInfo.ElementType.ClassContains,
+                                                                                  pageSettings.ListingsElementNameInList));
+                    }
+                }
+
                 if (listElements == null || !listElements.Any())
                     throw new Exception("Listings list is empty\n");
             }
@@ -389,7 +406,7 @@ namespace SiteMonitorings.Worker
                 throw new Exception("Can't find listings in list, check listing name.\nError: " + exception.Message);
             }
 
-            for (int i = listElements.Count - 1; i >= 0; i--)
+            for (int i = 0; i < listElements.Count; i++)
             {
                 var parametersForListing = GetParametersForListing(listElements[i], pageSettings.ParametersList);
 
@@ -474,6 +491,7 @@ namespace SiteMonitorings.Worker
             switch (mode)
             {
                 case WorkMode.eOnes:
+                case WorkMode.eTestMode:
                     return false;
                 case WorkMode.eSeconds_1:
                     Thread.Sleep(new TimeSpan(0, 0, 1));

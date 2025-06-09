@@ -205,7 +205,8 @@ namespace SiteMonitorings.Settings
         eHour_1,
         eHour_5,
         eDay,
-        eUntilInterrupt
+        eUntilInterrupt,
+        eTestMode
     }
 
     // Helping class for getting the presentation of listing actions in lists

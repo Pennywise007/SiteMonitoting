@@ -29,32 +29,32 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
             this.PathToList = new MetroFramework.Controls.MetroGrid();
             this.ColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.typeDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.PathToListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.textBoxSiteLink = new MetroFramework.Controls.MetroTextBox();
             this.label1 = new MetroFramework.Controls.MetroLabel();
             this.labelListPath = new MetroFramework.Controls.MetroLabel();
             this.label3 = new MetroFramework.Controls.MetroLabel();
             this.textBoxListElementName = new MetroFramework.Controls.MetroTextBox();
             this.ParametersTable = new MetroFramework.Controls.MetroGrid();
-            this.FullPath = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ParameterName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ParametersListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.labelParameters = new MetroFramework.Controls.MetroLabel();
             this.buttonExecuteScript = new System.Windows.Forms.CheckBox();
+            this.FullPath = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.typeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.ParametersListBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.typeDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.PathToListBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.ParameterName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.PathToList)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PathToListBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ParametersTable)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ParametersListBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PathToListBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // PathToList
@@ -69,42 +69,42 @@
             this.PathToList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.PathToList.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.PathToList.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.PeachPuff;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Silver;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.PathToList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle13.BackColor = System.Drawing.Color.PeachPuff;
+            dataGridViewCellStyle13.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle13.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.Color.Silver;
+            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.PathToList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle13;
             this.PathToList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.PathToList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ColumnName,
             this.typeDataGridViewTextBoxColumn1});
             this.PathToList.DataSource = this.PathToListBindingSource;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Silver;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.PathToList.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle14.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle14.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.Color.Silver;
+            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.PathToList.DefaultCellStyle = dataGridViewCellStyle14;
             this.PathToList.EnableHeadersVisualStyles = false;
             this.PathToList.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.PathToList.GridColor = System.Drawing.Color.White;
             this.PathToList.Location = new System.Drawing.Point(1, 58);
-            this.PathToList.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.PathToList.Margin = new System.Windows.Forms.Padding(2);
             this.PathToList.Name = "PathToList";
             this.PathToList.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.Silver;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.PathToList.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle15.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle15.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.Color.Silver;
+            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.PathToList.RowHeadersDefaultCellStyle = dataGridViewCellStyle15;
             this.PathToList.RowHeadersWidth = 62;
             this.PathToList.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.PathToList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -117,6 +117,19 @@
             this.ColumnName.HeaderText = "Имя";
             this.ColumnName.MinimumWidth = 8;
             this.ColumnName.Name = "ColumnName";
+            // 
+            // typeDataGridViewTextBoxColumn1
+            // 
+            this.typeDataGridViewTextBoxColumn1.DataPropertyName = "Type";
+            this.typeDataGridViewTextBoxColumn1.HeaderText = "Тип элемента";
+            this.typeDataGridViewTextBoxColumn1.MinimumWidth = 8;
+            this.typeDataGridViewTextBoxColumn1.Name = "typeDataGridViewTextBoxColumn1";
+            this.typeDataGridViewTextBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.typeDataGridViewTextBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // PathToListBindingSource
+            // 
+            this.PathToListBindingSource.DataSource = typeof(SiteMonitorings.Settings.ElementInfo);
             // 
             // textBoxSiteLink
             // 
@@ -176,9 +189,9 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(-1, 153);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(248, 19);
+            this.label3.Size = new System.Drawing.Size(376, 19);
             this.label3.TabIndex = 13;
-            this.label3.Text = "Имя класса каждого элемента в списке";
+            this.label3.Text = "Имя класса каждого элемента в списке(Class name or XPath)";
             // 
             // textBoxListElementName
             // 
@@ -188,16 +201,16 @@
             // 
             // 
             this.textBoxListElementName.CustomButton.Image = null;
-            this.textBoxListElementName.CustomButton.Location = new System.Drawing.Point(387, 1);
+            this.textBoxListElementName.CustomButton.Location = new System.Drawing.Point(580, 2);
             this.textBoxListElementName.CustomButton.Name = "";
-            this.textBoxListElementName.CustomButton.Size = new System.Drawing.Size(10, 10);
+            this.textBoxListElementName.CustomButton.Size = new System.Drawing.Size(15, 15);
             this.textBoxListElementName.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.textBoxListElementName.CustomButton.TabIndex = 1;
             this.textBoxListElementName.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
             this.textBoxListElementName.CustomButton.UseSelectable = true;
             this.textBoxListElementName.CustomButton.Visible = false;
             this.textBoxListElementName.Lines = new string[0];
-            this.textBoxListElementName.Location = new System.Drawing.Point(260, 152);
+            this.textBoxListElementName.Location = new System.Drawing.Point(381, 152);
             this.textBoxListElementName.MaxLength = 32767;
             this.textBoxListElementName.Name = "textBoxListElementName";
             this.textBoxListElementName.PasswordChar = '\0';
@@ -206,7 +219,7 @@
             this.textBoxListElementName.SelectionLength = 0;
             this.textBoxListElementName.SelectionStart = 0;
             this.textBoxListElementName.ShortcutsEnabled = true;
-            this.textBoxListElementName.Size = new System.Drawing.Size(598, 20);
+            this.textBoxListElementName.Size = new System.Drawing.Size(477, 20);
             this.textBoxListElementName.TabIndex = 14;
             this.textBoxListElementName.UseSelectable = true;
             this.textBoxListElementName.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
@@ -225,62 +238,51 @@
             this.ParametersTable.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.ParametersTable.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.ParametersTable.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.PeachPuff;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.Silver;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.ParametersTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle16.BackColor = System.Drawing.Color.PeachPuff;
+            dataGridViewCellStyle16.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle16.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.Color.Silver;
+            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.ParametersTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle16;
             this.ParametersTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.ParametersTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.FullPath,
             this.typeDataGridViewTextBoxColumn,
             this.ParameterName});
             this.ParametersTable.DataSource = this.ParametersListBindingSource;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.Silver;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.ParametersTable.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle17.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle17.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle17.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.Color.Silver;
+            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.ParametersTable.DefaultCellStyle = dataGridViewCellStyle17;
             this.ParametersTable.EnableHeadersVisualStyles = false;
             this.ParametersTable.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.ParametersTable.GridColor = System.Drawing.Color.White;
             this.ParametersTable.Location = new System.Drawing.Point(1, 200);
             this.ParametersTable.Name = "ParametersTable";
             this.ParametersTable.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.Silver;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.ParametersTable.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle18.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle18.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle18.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.Color.Silver;
+            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.ParametersTable.RowHeadersDefaultCellStyle = dataGridViewCellStyle18;
             this.ParametersTable.RowHeadersWidth = 62;
             this.ParametersTable.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.ParametersTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.ParametersTable.Size = new System.Drawing.Size(856, 121);
             this.ParametersTable.TabIndex = 15;
             // 
-            // FullPath
+            // ParametersListBindingSource
             // 
-            this.FullPath.DataPropertyName = "FullPath";
-            this.FullPath.HeaderText = "Полный путь к элементу (для точности можно указать через-> или использовать * есл" +
-    "и нужен параметр самого листинга)";
-            this.FullPath.MinimumWidth = 8;
-            this.FullPath.Name = "FullPath";
-            // 
-            // ParameterName
-            // 
-            this.ParameterName.DataPropertyName = "ParameterName";
-            this.ParameterName.HeaderText = "Имя элемента";
-            this.ParameterName.MinimumWidth = 8;
-            this.ParameterName.Name = "ParameterName";
+            this.ParametersListBindingSource.DataSource = typeof(SiteMonitorings.Settings.ParameterInfo);
             // 
             // labelParameters
             // 
@@ -302,7 +304,7 @@
             this.buttonExecuteScript.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.buttonExecuteScript.ForeColor = System.Drawing.SystemColors.ControlText;
             this.buttonExecuteScript.Location = new System.Drawing.Point(678, 11);
-            this.buttonExecuteScript.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.buttonExecuteScript.Margin = new System.Windows.Forms.Padding(1);
             this.buttonExecuteScript.Name = "buttonExecuteScript";
             this.buttonExecuteScript.Size = new System.Drawing.Size(179, 26);
             this.buttonExecuteScript.TabIndex = 17;
@@ -310,6 +312,15 @@
             this.buttonExecuteScript.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.buttonExecuteScript.UseVisualStyleBackColor = false;
             this.buttonExecuteScript.CheckedChanged += new System.EventHandler(this.buttonExecuteScript_CheckedChanged);
+            // 
+            // FullPath
+            // 
+            this.FullPath.DataPropertyName = "FullPath";
+            this.FullPath.HeaderText = "Полный путь к элементу (для точности можно указать через-> или использовать * есл" +
+    "и нужен параметр самого листинга). If starts with \".//\" \"//\" or XPath will be us" +
+    "ed, ClassNameContains otherwise";
+            this.FullPath.MinimumWidth = 8;
+            this.FullPath.Name = "FullPath";
             // 
             // typeDataGridViewTextBoxColumn
             // 
@@ -322,22 +333,12 @@
             this.typeDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.typeDataGridViewTextBoxColumn.Width = 120;
             // 
-            // ParametersListBindingSource
+            // ParameterName
             // 
-            this.ParametersListBindingSource.DataSource = typeof(SiteMonitorings.Settings.ParameterInfo);
-            // 
-            // typeDataGridViewTextBoxColumn1
-            // 
-            this.typeDataGridViewTextBoxColumn1.DataPropertyName = "Type";
-            this.typeDataGridViewTextBoxColumn1.HeaderText = "Тип элемента";
-            this.typeDataGridViewTextBoxColumn1.MinimumWidth = 8;
-            this.typeDataGridViewTextBoxColumn1.Name = "typeDataGridViewTextBoxColumn1";
-            this.typeDataGridViewTextBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.typeDataGridViewTextBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // PathToListBindingSource
-            // 
-            this.PathToListBindingSource.DataSource = typeof(SiteMonitorings.Settings.ElementInfo);
+            this.ParameterName.DataPropertyName = "ParameterName";
+            this.ParameterName.HeaderText = "Имя элемента";
+            this.ParameterName.MinimumWidth = 8;
+            this.ParameterName.Name = "ParameterName";
             // 
             // SiteInformation
             // 
@@ -361,9 +362,9 @@
             this.Resizable = false;
             this.ShadowType = MetroFramework.Forms.MetroFormShadowType.None;
             ((System.ComponentModel.ISupportInitialize)(this.PathToList)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PathToListBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ParametersTable)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ParametersListBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PathToListBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -383,9 +384,9 @@
         private System.Windows.Forms.BindingSource ParametersListBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnName;
         private System.Windows.Forms.DataGridViewComboBoxColumn typeDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.CheckBox buttonExecuteScript;
         private System.Windows.Forms.DataGridViewTextBoxColumn FullPath;
         private System.Windows.Forms.DataGridViewComboBoxColumn typeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn ParameterName;
-        private System.Windows.Forms.CheckBox buttonExecuteScript;
     }
 }
