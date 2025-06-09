@@ -51,10 +51,9 @@
             // Run
             // 
             this.Run.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.Run.Location = new System.Drawing.Point(670, 708);
-            this.Run.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.Run.Location = new System.Drawing.Point(447, 460);
             this.Run.Name = "Run";
-            this.Run.Size = new System.Drawing.Size(598, 45);
+            this.Run.Size = new System.Drawing.Size(399, 29);
             this.Run.TabIndex = 4;
             this.Run.Text = "Запустить";
             this.Run.UseSelectable = true;
@@ -66,10 +65,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.WorkModeComboBox.FormattingEnabled = true;
             this.WorkModeComboBox.ItemHeight = 23;
-            this.WorkModeComboBox.Location = new System.Drawing.Point(171, 708);
-            this.WorkModeComboBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.WorkModeComboBox.Location = new System.Drawing.Point(114, 460);
             this.WorkModeComboBox.Name = "WorkModeComboBox";
-            this.WorkModeComboBox.Size = new System.Drawing.Size(466, 29);
+            this.WorkModeComboBox.Size = new System.Drawing.Size(312, 29);
             this.WorkModeComboBox.TabIndex = 5;
             this.WorkModeComboBox.UseSelectable = true;
             // 
@@ -77,8 +75,7 @@
             // 
             this.WorkModeLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.WorkModeLabel.AutoSize = true;
-            this.WorkModeLabel.Location = new System.Drawing.Point(14, 717);
-            this.WorkModeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.WorkModeLabel.Location = new System.Drawing.Point(9, 466);
             this.WorkModeLabel.Name = "WorkModeLabel";
             this.WorkModeLabel.Size = new System.Drawing.Size(99, 19);
             this.WorkModeLabel.TabIndex = 6;
@@ -92,18 +89,16 @@
             // 
             // 
             this.textBoxCommandPathOnFound.CustomButton.Image = null;
-            this.textBoxCommandPathOnFound.CustomButton.Location = new System.Drawing.Point(1202, 2);
-            this.textBoxCommandPathOnFound.CustomButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.textBoxCommandPathOnFound.CustomButton.Location = new System.Drawing.Point(357, 1);
             this.textBoxCommandPathOnFound.CustomButton.Name = "";
-            this.textBoxCommandPathOnFound.CustomButton.Size = new System.Drawing.Size(44, 45);
+            this.textBoxCommandPathOnFound.CustomButton.Size = new System.Drawing.Size(10, 10);
             this.textBoxCommandPathOnFound.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.textBoxCommandPathOnFound.CustomButton.TabIndex = 1;
             this.textBoxCommandPathOnFound.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
             this.textBoxCommandPathOnFound.CustomButton.UseSelectable = true;
             this.textBoxCommandPathOnFound.CustomButton.Visible = false;
             this.textBoxCommandPathOnFound.Lines = new string[0];
-            this.textBoxCommandPathOnFound.Location = new System.Drawing.Point(438, 622);
-            this.textBoxCommandPathOnFound.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.textBoxCommandPathOnFound.Location = new System.Drawing.Point(292, 404);
             this.textBoxCommandPathOnFound.MaxLength = 32767;
             this.textBoxCommandPathOnFound.Name = "textBoxCommandPathOnFound";
             this.textBoxCommandPathOnFound.PasswordChar = '\0';
@@ -112,7 +107,7 @@
             this.textBoxCommandPathOnFound.SelectionLength = 0;
             this.textBoxCommandPathOnFound.SelectionStart = 0;
             this.textBoxCommandPathOnFound.ShortcutsEnabled = true;
-            this.textBoxCommandPathOnFound.Size = new System.Drawing.Size(831, 31);
+            this.textBoxCommandPathOnFound.Size = new System.Drawing.Size(554, 20);
             this.textBoxCommandPathOnFound.TabIndex = 18;
             this.textBoxCommandPathOnFound.UseSelectable = true;
             this.textBoxCommandPathOnFound.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
@@ -122,8 +117,7 @@
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(14, 622);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(9, 404);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(277, 19);
             this.label2.TabIndex = 17;
@@ -137,18 +131,16 @@
             // 
             // 
             this.textBoxCommandPathOnError.CustomButton.Image = null;
-            this.textBoxCommandPathOnError.CustomButton.Location = new System.Drawing.Point(1202, 2);
-            this.textBoxCommandPathOnError.CustomButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.textBoxCommandPathOnError.CustomButton.Location = new System.Drawing.Point(357, 1);
             this.textBoxCommandPathOnError.CustomButton.Name = "";
-            this.textBoxCommandPathOnError.CustomButton.Size = new System.Drawing.Size(44, 45);
+            this.textBoxCommandPathOnError.CustomButton.Size = new System.Drawing.Size(10, 10);
             this.textBoxCommandPathOnError.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.textBoxCommandPathOnError.CustomButton.TabIndex = 1;
             this.textBoxCommandPathOnError.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
             this.textBoxCommandPathOnError.CustomButton.UseSelectable = true;
             this.textBoxCommandPathOnError.CustomButton.Visible = false;
             this.textBoxCommandPathOnError.Lines = new string[0];
-            this.textBoxCommandPathOnError.Location = new System.Drawing.Point(438, 668);
-            this.textBoxCommandPathOnError.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.textBoxCommandPathOnError.Location = new System.Drawing.Point(292, 434);
             this.textBoxCommandPathOnError.MaxLength = 32767;
             this.textBoxCommandPathOnError.Name = "textBoxCommandPathOnError";
             this.textBoxCommandPathOnError.PasswordChar = '\0';
@@ -157,7 +149,7 @@
             this.textBoxCommandPathOnError.SelectionLength = 0;
             this.textBoxCommandPathOnError.SelectionStart = 0;
             this.textBoxCommandPathOnError.ShortcutsEnabled = true;
-            this.textBoxCommandPathOnError.Size = new System.Drawing.Size(831, 31);
+            this.textBoxCommandPathOnError.Size = new System.Drawing.Size(554, 20);
             this.textBoxCommandPathOnError.TabIndex = 20;
             this.textBoxCommandPathOnError.UseSelectable = true;
             this.textBoxCommandPathOnError.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
@@ -167,8 +159,7 @@
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(14, 668);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Location = new System.Drawing.Point(9, 434);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(260, 19);
             this.label4.TabIndex = 19;
@@ -179,21 +170,19 @@
             this.tabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl.Location = new System.Drawing.Point(14, 126);
-            this.tabControl.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.tabControl.Location = new System.Drawing.Point(9, 82);
             this.tabControl.Multiline = true;
             this.tabControl.Name = "tabControl";
-            this.tabControl.Size = new System.Drawing.Size(1256, 486);
+            this.tabControl.Size = new System.Drawing.Size(837, 316);
             this.tabControl.Style = MetroFramework.MetroColorStyle.Green;
             this.tabControl.TabIndex = 21;
             this.tabControl.UseSelectable = true;
             // 
             // buttonAddPage
             // 
-            this.buttonAddPage.Location = new System.Drawing.Point(14, 82);
-            this.buttonAddPage.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.buttonAddPage.Location = new System.Drawing.Point(9, 53);
             this.buttonAddPage.Name = "buttonAddPage";
-            this.buttonAddPage.Size = new System.Drawing.Size(279, 35);
+            this.buttonAddPage.Size = new System.Drawing.Size(186, 23);
             this.buttonAddPage.TabIndex = 22;
             this.buttonAddPage.Text = "Добавить страницу";
             this.buttonAddPage.UseVisualStyleBackColor = true;
@@ -201,10 +190,9 @@
             // 
             // buttonDeletePage
             // 
-            this.buttonDeletePage.Location = new System.Drawing.Point(302, 82);
-            this.buttonDeletePage.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.buttonDeletePage.Location = new System.Drawing.Point(201, 53);
             this.buttonDeletePage.Name = "buttonDeletePage";
-            this.buttonDeletePage.Size = new System.Drawing.Size(279, 35);
+            this.buttonDeletePage.Size = new System.Drawing.Size(186, 23);
             this.buttonDeletePage.TabIndex = 23;
             this.buttonDeletePage.Text = "Удалить страницу";
             this.buttonDeletePage.UseVisualStyleBackColor = true;
@@ -212,10 +200,9 @@
             // 
             // buttonRenamePage
             // 
-            this.buttonRenamePage.Location = new System.Drawing.Point(590, 82);
-            this.buttonRenamePage.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.buttonRenamePage.Location = new System.Drawing.Point(393, 53);
             this.buttonRenamePage.Name = "buttonRenamePage";
-            this.buttonRenamePage.Size = new System.Drawing.Size(279, 35);
+            this.buttonRenamePage.Size = new System.Drawing.Size(186, 23);
             this.buttonRenamePage.TabIndex = 24;
             this.buttonRenamePage.Text = "Переименовать страницу";
             this.buttonRenamePage.UseVisualStyleBackColor = true;
@@ -223,10 +210,9 @@
             // 
             // buttonTestPage
             // 
-            this.buttonTestPage.Location = new System.Drawing.Point(878, 82);
-            this.buttonTestPage.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.buttonTestPage.Location = new System.Drawing.Point(585, 53);
             this.buttonTestPage.Name = "buttonTestPage";
-            this.buttonTestPage.Size = new System.Drawing.Size(279, 35);
+            this.buttonTestPage.Size = new System.Drawing.Size(186, 23);
             this.buttonTestPage.TabIndex = 25;
             this.buttonTestPage.Text = "Проверить страницу";
             this.buttonTestPage.UseVisualStyleBackColor = true;
@@ -242,9 +228,9 @@
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1298, 788);
+            this.ClientSize = new System.Drawing.Size(865, 512);
             this.Controls.Add(this.buttonTestPage);
             this.Controls.Add(this.buttonRenamePage);
             this.Controls.Add(this.buttonDeletePage);
@@ -259,9 +245,7 @@
             this.Controls.Add(this.Run);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "MainForm";
-            this.Padding = new System.Windows.Forms.Padding(30, 92, 30, 31);
             this.Style = MetroFramework.MetroColorStyle.Green;
             this.Text = "Мониторинг изменений на сайте";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
