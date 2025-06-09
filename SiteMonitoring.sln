@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TelegramDLL", "TelegramDLL\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SiteMonitoring", "SiteMonitoring\SiteMonitoring.csproj", "{D08631FE-8163-4E6B-9158-8B04857AF346}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebTest", "WebTest\WebTest.csproj", "{E7830182-CCF5-43F6-B67B-936611F2054A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,18 @@ Global
 		{D08631FE-8163-4E6B-9158-8B04857AF346}.Release|x64.Build.0 = Release|Any CPU
 		{D08631FE-8163-4E6B-9158-8B04857AF346}.Release|x86.ActiveCfg = Release|Any CPU
 		{D08631FE-8163-4E6B-9158-8B04857AF346}.Release|x86.Build.0 = Release|Any CPU
+		{E7830182-CCF5-43F6-B67B-936611F2054A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7830182-CCF5-43F6-B67B-936611F2054A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7830182-CCF5-43F6-B67B-936611F2054A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{E7830182-CCF5-43F6-B67B-936611F2054A}.Debug|x64.Build.0 = Debug|Any CPU
+		{E7830182-CCF5-43F6-B67B-936611F2054A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E7830182-CCF5-43F6-B67B-936611F2054A}.Debug|x86.Build.0 = Debug|Any CPU
+		{E7830182-CCF5-43F6-B67B-936611F2054A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7830182-CCF5-43F6-B67B-936611F2054A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7830182-CCF5-43F6-B67B-936611F2054A}.Release|x64.ActiveCfg = Release|Any CPU
+		{E7830182-CCF5-43F6-B67B-936611F2054A}.Release|x64.Build.0 = Release|Any CPU
+		{E7830182-CCF5-43F6-B67B-936611F2054A}.Release|x86.ActiveCfg = Release|Any CPU
+		{E7830182-CCF5-43F6-B67B-936611F2054A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
