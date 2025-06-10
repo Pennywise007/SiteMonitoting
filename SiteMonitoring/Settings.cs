@@ -120,9 +120,9 @@ namespace SiteMonitorings.Settings
                 case ElementType.ClassContains:
                     throw new Exception("Parameter can't be a class");
                 case ElementType.Link:
-                    return ByLink.GetElementLink(element);
+                    return element.GetElementLink();
                 case ElementType.Text:
-                    return element.Text;
+                    return element.GetElementText();
                 case ElementType.Attribute:
                     return element.GetAttribute(name);
                 default:

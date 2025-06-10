@@ -39,15 +39,24 @@ namespace SiteMonitorings.WebDriver
         }
     }
 
-    public static class ByLink
+    static class ByText
     {
-        public static string GetElementLink(IWebElement elements)
+        public static By Contains(string text, string tag = "*")
+        {
+            return By.XPath($"//{tag}[contains(text(), '{text}')]");
+        }
+    }
+
+    // Extension for the IWebElement
+    public static class ExtensionMethods
+    {
+        public static string GetElementLink(this IWebElement element)
         {
             const string linkAttributeName = "href";
             string elementLink = null;
             try
             {
-                elementLink = elements.GetAttribute(linkAttributeName);
+                elementLink = element.GetAttribute(linkAttributeName);
             }
             catch (StaleElementReferenceException) { }
 
@@ -55,14 +64,14 @@ namespace SiteMonitorings.WebDriver
             {
                 try
                 {
-                    var elementWithLink = elements.FindElement(By.XPath(".//a"));
+                    var elementWithLink = element.FindElement(By.XPath(".//a"));
                     elementLink = elementWithLink.GetAttribute(linkAttributeName) ?? elementWithLink.GetAttribute("data-href");
                 }
                 catch (NoSuchElementException)
                 {
                     try
                     {
-                        elementLink = elements.GetAttribute("onclick");
+                        elementLink = element.GetAttribute("onclick");
                     }
                     catch (Exception exception)
                     {
@@ -78,13 +87,25 @@ namespace SiteMonitorings.WebDriver
             }
             return elementLink;
         }
-    }
 
-    static class ByText
-    {
-        public static By Contains(string text, string tag = "*")
+        public static string GetElementText(this IWebElement element)
         {
-            return By.XPath($"//{tag}[contains(text(), '{text}')]");
+            if (element == null)
+                return string.Empty;
+
+            string text = element.Text;
+            if (!string.IsNullOrEmpty(text))
+                return text;
+
+            text = element.GetAttribute("textContent");
+            if (!string.IsNullOrEmpty(text))
+                return text;
+
+            text = element.GetAttribute("innerText");
+            if (!string.IsNullOrEmpty(text))
+                return text;
+
+            return string.Empty;
         }
     }
 

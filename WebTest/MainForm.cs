@@ -123,8 +123,8 @@ namespace WebTest.UI
                 }
 
                 var elementRect = new Rectangle(element.Location, element.Size);
-                var elementText = element.Text;
-                var elementLink = ByLink.GetElementLink(element);
+                var elementText = element.GetElementText();
+                var elementLink = element.GetElementLink();
 
                 textBoxElementPosition.Text = $"{elementRect.X},{elementRect.Y} ({elementRect.Width}x{elementRect.Height})";
                 textBoxElementText.Text = elementText;
