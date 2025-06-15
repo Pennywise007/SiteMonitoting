@@ -37,8 +37,6 @@
             this.buttonClose = new MetroFramework.Controls.MetroButton();
             this.label1 = new MetroFramework.Controls.MetroLabel();
             this.pathTable = new MetroFramework.Controls.MetroGrid();
-            this.pathDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PathInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.label2 = new MetroFramework.Controls.MetroLabel();
             this.label3 = new MetroFramework.Controls.MetroLabel();
             this.labelClassName = new MetroFramework.Controls.MetroLabel();
@@ -79,10 +77,12 @@
             this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
             this.labelXPathIndex = new MetroFramework.Controls.MetroLabel();
             this.buttonUseXPathIndex = new MetroFramework.Controls.MetroButton();
+            this.pathDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PathInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pathTable)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PathInfoBindingSource)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PathInfoBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonOpenUrl
@@ -166,17 +166,6 @@
             this.pathTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.pathTable.Size = new System.Drawing.Size(924, 217);
             this.pathTable.TabIndex = 29;
-            // 
-            // pathDataGridViewTextBoxColumn
-            // 
-            this.pathDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.pathDataGridViewTextBoxColumn.DataPropertyName = "Path";
-            this.pathDataGridViewTextBoxColumn.HeaderText = "XPath";
-            this.pathDataGridViewTextBoxColumn.Name = "pathDataGridViewTextBoxColumn";
-            // 
-            // PathInfoBindingSource
-            // 
-            this.PathInfoBindingSource.DataSource = typeof(WebTest.Settings.PathInfo);
             // 
             // label2
             // 
@@ -507,6 +496,7 @@
             this.buttonOpenLink.TabIndex = 56;
             this.buttonOpenLink.Text = "Open";
             this.buttonOpenLink.UseSelectable = true;
+            this.buttonOpenLink.Click += new System.EventHandler(this.buttonOpenLink_Click);
             // 
             // label17
             // 
@@ -593,6 +583,17 @@
             this.buttonUseXPathIndex.UseSelectable = true;
             this.buttonUseXPathIndex.Click += new System.EventHandler(this.buttonUseXPathIndex_Click);
             // 
+            // pathDataGridViewTextBoxColumn
+            // 
+            this.pathDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.pathDataGridViewTextBoxColumn.DataPropertyName = "Path";
+            this.pathDataGridViewTextBoxColumn.HeaderText = "XPath";
+            this.pathDataGridViewTextBoxColumn.Name = "pathDataGridViewTextBoxColumn";
+            // 
+            // PathInfoBindingSource
+            // 
+            this.PathInfoBindingSource.DataSource = typeof(WebTest.Settings.PathInfo);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -616,11 +617,11 @@
             this.Text = "Websites checker";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.pathTable)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PathInfoBindingSource)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PathInfoBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

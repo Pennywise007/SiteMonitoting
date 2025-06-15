@@ -44,6 +44,7 @@
             this.buttonTestPage = new System.Windows.Forms.Button();
             this.PathToListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.ParametersListBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.buttonDuplicate = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.PathToListBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ParametersListBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -89,9 +90,9 @@
             // 
             // 
             this.textBoxCommandPathOnFound.CustomButton.Image = null;
-            this.textBoxCommandPathOnFound.CustomButton.Location = new System.Drawing.Point(357, 1);
+            this.textBoxCommandPathOnFound.CustomButton.Location = new System.Drawing.Point(536, 2);
             this.textBoxCommandPathOnFound.CustomButton.Name = "";
-            this.textBoxCommandPathOnFound.CustomButton.Size = new System.Drawing.Size(10, 10);
+            this.textBoxCommandPathOnFound.CustomButton.Size = new System.Drawing.Size(15, 15);
             this.textBoxCommandPathOnFound.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.textBoxCommandPathOnFound.CustomButton.TabIndex = 1;
             this.textBoxCommandPathOnFound.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -131,9 +132,9 @@
             // 
             // 
             this.textBoxCommandPathOnError.CustomButton.Image = null;
-            this.textBoxCommandPathOnError.CustomButton.Location = new System.Drawing.Point(357, 1);
+            this.textBoxCommandPathOnError.CustomButton.Location = new System.Drawing.Point(536, 2);
             this.textBoxCommandPathOnError.CustomButton.Name = "";
-            this.textBoxCommandPathOnError.CustomButton.Size = new System.Drawing.Size(10, 10);
+            this.textBoxCommandPathOnError.CustomButton.Size = new System.Drawing.Size(15, 15);
             this.textBoxCommandPathOnError.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.textBoxCommandPathOnError.CustomButton.TabIndex = 1;
             this.textBoxCommandPathOnError.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -182,7 +183,7 @@
             // 
             this.buttonAddPage.Location = new System.Drawing.Point(9, 53);
             this.buttonAddPage.Name = "buttonAddPage";
-            this.buttonAddPage.Size = new System.Drawing.Size(186, 23);
+            this.buttonAddPage.Size = new System.Drawing.Size(133, 23);
             this.buttonAddPage.TabIndex = 22;
             this.buttonAddPage.Text = "Добавить страницу";
             this.buttonAddPage.UseVisualStyleBackColor = true;
@@ -190,9 +191,9 @@
             // 
             // buttonDeletePage
             // 
-            this.buttonDeletePage.Location = new System.Drawing.Point(201, 53);
+            this.buttonDeletePage.Location = new System.Drawing.Point(148, 53);
             this.buttonDeletePage.Name = "buttonDeletePage";
-            this.buttonDeletePage.Size = new System.Drawing.Size(186, 23);
+            this.buttonDeletePage.Size = new System.Drawing.Size(138, 23);
             this.buttonDeletePage.TabIndex = 23;
             this.buttonDeletePage.Text = "Удалить страницу";
             this.buttonDeletePage.UseVisualStyleBackColor = true;
@@ -200,9 +201,9 @@
             // 
             // buttonRenamePage
             // 
-            this.buttonRenamePage.Location = new System.Drawing.Point(393, 53);
+            this.buttonRenamePage.Location = new System.Drawing.Point(292, 53);
             this.buttonRenamePage.Name = "buttonRenamePage";
-            this.buttonRenamePage.Size = new System.Drawing.Size(186, 23);
+            this.buttonRenamePage.Size = new System.Drawing.Size(161, 23);
             this.buttonRenamePage.TabIndex = 24;
             this.buttonRenamePage.Text = "Переименовать страницу";
             this.buttonRenamePage.UseVisualStyleBackColor = true;
@@ -226,11 +227,22 @@
             // 
             this.ParametersListBindingSource.DataSource = typeof(SiteMonitorings.Settings.ParameterInfo);
             // 
+            // buttonDuplicate
+            // 
+            this.buttonDuplicate.Location = new System.Drawing.Point(459, 53);
+            this.buttonDuplicate.Name = "buttonDuplicate";
+            this.buttonDuplicate.Size = new System.Drawing.Size(95, 23);
+            this.buttonDuplicate.TabIndex = 26;
+            this.buttonDuplicate.Text = "Дублировать";
+            this.buttonDuplicate.UseVisualStyleBackColor = true;
+            this.buttonDuplicate.Click += new System.EventHandler(this.buttonDuplicate_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(865, 512);
+            this.Controls.Add(this.buttonDuplicate);
             this.Controls.Add(this.buttonTestPage);
             this.Controls.Add(this.buttonRenamePage);
             this.Controls.Add(this.buttonDeletePage);
@@ -271,6 +283,7 @@
         private System.Windows.Forms.Button buttonDeletePage;
         private System.Windows.Forms.Button buttonRenamePage;
         private System.Windows.Forms.Button buttonTestPage;
+        private System.Windows.Forms.Button buttonDuplicate;
     }
 }
 

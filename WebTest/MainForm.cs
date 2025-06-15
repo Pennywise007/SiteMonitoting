@@ -355,6 +355,17 @@ namespace WebTest.UI
 
             parametersChangingMutex.ReleaseMutex();
         }
+
+        private void buttonOpenLink_Click(object sender, EventArgs e)
+        {
+            if (_webDriverHelper == null || string.IsNullOrEmpty(textBoxElementLink.Text))
+            {
+                MessageBox.Show(this, "No link to open.", "No Link", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            _webDriverHelper.OpenNewTab(textBoxElementLink.Text);
+        }
     }
 
     static class Globals

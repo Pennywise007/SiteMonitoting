@@ -1,19 +1,20 @@
-﻿using System;
-using System.Drawing;
-using System.Linq;
-using System.IO;
-using System.Xml.Serialization;
-using System.Windows.Forms;
-using SiteMonitorings.Settings;
-using SiteMonitorings.Worker;
-using MetroFramework.Forms;
+﻿using MetroFramework.Forms;
+using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 using SiteMonitoring;
 using SiteMonitoring.Properties;
-using Microsoft.Extensions.DependencyInjection;
-using System.Runtime.Serialization.Formatters.Binary;
+using SiteMonitorings.Settings;
+using SiteMonitorings.Worker;
+using System;
 using System.Collections.Generic;
-using System.Timers;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading;
+using System.Timers;
+using System.Windows.Forms;
+using System.Xml.Serialization;
 
 namespace SiteMonitorings.UI
 {
@@ -101,6 +102,11 @@ namespace SiteMonitorings.UI
             foreach (var page in _settings.pageSettings)
             {
                 AddPage(page);
+            }
+
+            if (_settings.pageSettings.Count > 0)
+            {
+                tabControl.SelectedIndex = Math.Min(_settings.activePageIndex, _settings.pageSettings.Count);
             }
         }
 
@@ -283,6 +289,7 @@ namespace SiteMonitorings.UI
             }
             _settings.CommandLineOnNewElement = textBoxCommandPathOnFound.Text;
             _settings.CommandLineOnError = textBoxCommandPathOnError.Text;
+            _settings.activePageIndex = tabControl.SelectedIndex;
         }
 
         private void AddPage(PageSettings settings)
@@ -338,6 +345,26 @@ namespace SiteMonitorings.UI
 
             Rename renameDialog = new Rename(tabControl.TabPages[tabControl.SelectedIndex].Text);
             tabControl.TabPages[tabControl.SelectedIndex].Text = renameDialog.Execute();
+        }
+
+        private void buttonDuplicate_Click(object sender, EventArgs e)
+        {
+            if (tabControl.SelectedIndex == -1)
+            {
+                MessageBox.Show("Can't duplicate tab", "No tabs", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            Rename renameDialog = new Rename("", "Имя вкладки");
+            var name = renameDialog.Execute();
+
+            var json = JsonConvert.SerializeObject(_settings.pageSettings[tabControl.SelectedIndex]);
+            var newPage = JsonConvert.DeserializeObject<PageSettings>(json);
+
+            newPage.Name = name;
+
+            _settings.pageSettings.Add(newPage);
+            AddPage(_settings.pageSettings.Last());
         }
 
         private void buttonTestPage_Click(object sender, EventArgs e)

@@ -22,6 +22,7 @@ namespace SiteMonitorings.Settings
         public string CommandLineOnError = null;
 
         public List<PageSettings> pageSettings = new List<PageSettings>();
+        public int activePageIndex = 0;
     }
 
     [Serializable]
