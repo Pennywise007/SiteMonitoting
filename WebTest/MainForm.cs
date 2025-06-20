@@ -21,18 +21,12 @@ namespace WebTest.UI
     {
         private ProgramSettings _settings = new ProgramSettings();
 
-        System.Timers.Timer saveTimer = new System.Timers.Timer();
-        Mutex parametersChangingMutex = new Mutex();
-
         private string _settingsFileName = "test_settings.xml";
 
         private WebDriverHelper _webDriverHelper;
 
         public MainForm()
         {
-            saveTimer.Elapsed += new ElapsedEventHandler(OnSaveTimer);
-            saveTimer.Interval = 1000 * 30;
-
             _settingsFileName = System.AppDomain.CurrentDomain.FriendlyName;
             int pointIndex = _settingsFileName.LastIndexOf('.');
             if (pointIndex > -1)
@@ -59,8 +53,6 @@ namespace WebTest.UI
                 return;
             }
 
-            parametersChangingMutex.WaitOne();
-            saveTimer.Enabled = false;
             GetSettings();
             try
             {
@@ -147,8 +139,6 @@ namespace WebTest.UI
             }
             finally
             {
-                saveTimer.Enabled = true;
-                parametersChangingMutex.ReleaseMutex();
             }
         }
 
@@ -192,18 +182,8 @@ namespace WebTest.UI
             jsDriver.ExecuteScript(highlightScript, element, durationMs);
         }
 
-        private void OnSaveTimer(object source, ElapsedEventArgs e)
-        {
-            saveTimer.Enabled = false;
-            parametersChangingMutex.WaitOne();
-            SaveSettings();
-            parametersChangingMutex.ReleaseMutex();
-        }
-
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            saveTimer.Enabled = false;
-
             SaveSettings();
 
             _webDriverHelper?.Quit();
@@ -345,15 +325,11 @@ namespace WebTest.UI
 
         private void buttonAddXPath_Click(object sender, EventArgs e)
         {
-            parametersChangingMutex.WaitOne();
-
             var bindingSource = (BindingSource)pathTable.DataSource;
             var bindingList = (SiteMonitorings.UI.SortableBindingList<PathInfo>)bindingSource.DataSource;
             bindingList.Add(new PathInfo { Path = textBoxXPath.Text });
 
             textBoxXPath.Text = "";
-
-            parametersChangingMutex.ReleaseMutex();
         }
 
         private void buttonOpenLink_Click(object sender, EventArgs e)

@@ -233,15 +233,22 @@ namespace SiteMonitorings.WebDriver
         /// <exception cref="T:OpenQA.Selenium.NoSuchWindowException">If the window cannot be found.</exception>
         public void CloseCurrentTab()
         {
-            Trace.Assert(Driver.WindowHandles.Count > 0, "Нет вкладок для закрытия");
-
-            bool lastOpenedTab = Driver.WindowHandles.Count <= 1;
-
-            Driver.Close();
-
-            if (!lastOpenedTab)
-                Driver.SwitchTo().Window(Driver.WindowHandles.Last()); //switches to last opened tab
+            switch (Driver.WindowHandles.Count)
+            {
+                case 0:
+                    Trace.Assert(false, "Нет вкладок для закрытия");
+                    throw new NoSuchWindowException("Нет вкладок для закрытия");
+                case 1:
+                    Driver.Url = "data:,";
+                    return;
+                default:
+                    Driver.Close();
+                    Driver.SwitchTo().Window(Driver.WindowHandles.Last()); //switches to last opened tab
+                    break;
+            }
         }
+
+
 
         public void Back()
         {

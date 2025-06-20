@@ -52,11 +52,12 @@ public:
             std::wstring json;
             ext::serializer::SerializeToJson(*this, json);
 
-            std::wofstream file(get_settings_path());
+            std::ofstream file(get_settings_path());
             EXT_CHECK(file.is_open()) << "Failed to open settings file";
             EXT_DEFER(file.close());
 
-            file << json;
+            // Some user name or first name may contain unicode characters, so we need to convert it to narrow string
+            file << std::narrow(json);
         }
         catch (...)
         {

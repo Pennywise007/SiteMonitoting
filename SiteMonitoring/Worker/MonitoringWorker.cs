@@ -30,13 +30,13 @@ namespace SiteMonitorings.Worker
         /// <summary> Handle exception during execution </summary>
         public event EventHandler<string> WhenError;
 
-        /// <summary> An error occurred during the execution </summary>
-        public event EventHandler<ListingInfo> WhenFound;
+        /// <summary> Notification about new item found </summary>
+        public event FoundHandler WhenFound;
 
         /// <summary> Execution thread </summary>
         private Thread _workerThread;
 
-        public void Start(List<PageSettings> pageSettings, Mutex parametersChangingMutex, WorkMode mode)
+        public bool Start(List<PageSettings> pageSettings, Mutex parametersChangingMutex, WorkMode mode)
         {
             Debug.Assert(!IsWorking(), "Поток уже работает");
             Debug.Assert(WhenFound != null, "No callbacl for on found");
@@ -47,17 +47,18 @@ namespace SiteMonitorings.Worker
                 try
                 {
                     if (string.IsNullOrEmpty(page.SiteLink))
-                        throw new ArgumentException($"Site link is empty in {page.Name}.");
+                        throw new ArgumentException($"Site link is empty.");
                 }
                 catch (Exception exception)
                 {
-                    WhenFinish?.Invoke(this, exception.Message);
-                    return;
+                    WhenFinish?.Invoke(this, $"Incorrect page `{page.Name}` setting: {exception.Message}");
+                    return false;
                 }
             }
 
             _workerThread = new Thread(() => WorkerThread(mode, pageSettings, parametersChangingMutex));
             _workerThread.Start();
+            return true;
         }
 
         /// <summary> Interrupting promotion </summary>
@@ -83,9 +84,9 @@ namespace SiteMonitorings.Worker
             WhenError?.Invoke(this, errorMessage);
         }
 
-        private void OnFoundNewElement(ListingInfo parameters)
+        private bool OnFoundNewElement(ListingInfo parameters)
         {
-            WhenFound?.Invoke(this, parameters);
+            return WhenFound?.Invoke(this, parameters) ?? true;
         }
 
         private void ValidateParams(PageSettings page)
@@ -116,131 +117,16 @@ namespace SiteMonitorings.Worker
                 throw new ArgumentException($"Listing name is empty in {page.Name}.");
         }
 
-        private void WorkerThread(WorkMode mode, List<PageSettings> pageSettings, Mutex parametersChangingMutex)
+        private void checkPage(WebDriverHelper webDriverHelper, PageSettings page, Mutex parametersChangingMutex)
         {
-            WebDriverHelper webDriverHelper = null;
+            ExecuteActions(webDriverHelper, page.ExecutionInfo);
+
+            IWebElement list = null;
             try
             {
-                do
-                {
-                    try
-                    {
-                        webDriverHelper = CreateWebDriver();
-                    }
-                    catch (Exception exception)
-                    {
-                        switch (exception)
-                        {
-                            case ThreadInterruptedException _:
-                            case ThreadAbortException _:
-                                throw;
-                        }
-                        OnError($"Failed to create a web driver\": {exception.Message}");
-                        continue;
-                    }
-
-                    foreach (var page in pageSettings)
-                    {
-                        try
-                        {
-                            webDriverHelper.OpenNewTab(page.SiteLink);
-
-                            ExecuteActions(webDriverHelper, page.ExecutionInfo);
-
-                            for (int i = 0; i < 5; ++i)
-                            {
-                                try
-                                {
-                                    ValidateParams(page);
-
-                                    IWebElement list = null;
-                                    try
-                                    {
-                                        list = GetElement(webDriverHelper, page.PathToList);
-                                        if (list == null)
-                                            throw new Exception("Element not found");
-                                    }
-                                    catch (Exception exception)
-                                    {
-                                        switch (exception)
-                                        {
-                                            case ThreadInterruptedException _:
-                                            case ThreadAbortException _:
-                                                throw;
-                                        }
-                                        throw new Exception("Failed to get list with listings " + exception.Message);
-                                    }
-
-                                    CheckForNewListings(webDriverHelper, list, page, parametersChangingMutex);
-
-                                    break;
-                                }
-                                catch (Exception exception)
-                                {
-                                    switch (exception)
-                                    {
-                                        case ThreadInterruptedException _:
-                                        case ThreadAbortException _:
-                                            throw;
-                                    }
-
-                                    if (i == 2)
-                                        throw;
-
-                                    Thread.Sleep(new TimeSpan(0, 0, 1));
-                                }
-                            }
-                        }
-                        catch (Exception exception)
-                        {
-                            switch (exception)
-                            {
-                                case ThreadInterruptedException _:
-                                case ThreadAbortException _:
-                                    throw;
-                            }
-                            OnError($"Error during execution for {page.Name}: {exception.Message}");
-                        }
-                        finally
-                        {
-                            try
-                            {
-                                if (mode != WorkMode.eTestMode)
-                                {
-                                    webDriverHelper.CloseCurrentTab();
-                                }
-                            }
-                            catch (Exception exception)
-                            {
-                                switch (exception)
-                                {
-                                    case ThreadInterruptedException _:
-                                    case ThreadAbortException _:
-                                        throw;
-                                }
-                                OnError($"Can't close chrome driver for {page.Name}: {exception.Message}");
-                            }
-                        }
-                    }
-
-                    try
-                    {
-                        if (mode != WorkMode.eTestMode)
-                        {
-                            webDriverHelper.Driver.Quit();
-                        }
-                    }
-                    catch (Exception exception)
-                    {
-                        switch (exception)
-                        {
-                            case ThreadInterruptedException _:
-                            case ThreadAbortException _:
-                                throw;
-                        }
-                        OnError($"Can't quit chrome {exception.Message}");
-                    }
-                } while (WaitForNextExecution(mode));
+                list = GetElement(webDriverHelper, page.PathToList);
+                if (list == null)
+                    throw new Exception("Element not found");
             }
             catch (Exception exception)
             {
@@ -248,22 +134,115 @@ namespace SiteMonitorings.Worker
                 {
                     case ThreadInterruptedException _:
                     case ThreadAbortException _:
-                        return;
+                        throw;
                 }
-
-                OnError(exception.ToString());
+                throw new Exception($"Failed to get list with listings: {exception.Message}");
             }
-            finally
-            {
-                WhenFinish?.Invoke(this, null);
 
+            CheckForNewListings(webDriverHelper, list, page, parametersChangingMutex);
+        }
+
+        private void WorkerThread(WorkMode mode, List<PageSettings> pageSettings, Mutex parametersChangingMutex)
+        {
+            foreach (var page in pageSettings)
+            {
                 try
                 {
-                    webDriverHelper?.Driver.Quit();
+                    ValidateParams(page);
                 }
-                catch (Exception)
+                catch (Exception exception)
                 {
+                    switch (exception)
+                    {
+                        case ThreadInterruptedException _:
+                        case ThreadAbortException _:
+                            throw;
+                    }
+                    WhenFinish?.Invoke(this, $"Error in page settings for {page.Name}: {exception.Message}");
+                    return;
                 }
+            }
+
+            var maxAttemptsPerPage = mode == WorkMode.eTestMode ? 1 : 3;
+
+            // In test mode we close the browser only AFTER we show results
+            WebDriverHelper webDriverHelper = null;
+
+            do
+            {
+                foreach (var page in pageSettings)
+                {
+                    for (int attempt = 1; attempt <= maxAttemptsPerPage; ++attempt)
+                    {
+                        try
+                        {
+                            try
+                            {
+                                // we open web browser for each page separately because we need to hard reset all browser cache
+                                // otherwise some websites may show captcha or block access
+                                webDriverHelper = CreateWebDriver();
+                            }
+                            catch (Exception exception)
+                            {
+                                throw new Exception($"Failed to create a web driver", exception);
+                            }
+
+                            try
+                            {
+                                webDriverHelper.OpenInCurrentWindow(page.SiteLink);
+                            }
+                            catch (Exception exception)
+                            {
+                                throw new Exception($"Failed to open new tab", exception);
+                            }
+
+                            try
+                            {
+                                checkPage(webDriverHelper, page, parametersChangingMutex);
+                                break;
+                            }
+                            finally
+                            {
+                                if (mode != WorkMode.eTestMode)
+                                {
+                                    // In test mode we close the browser only AFTER we show results
+                                    webDriverHelper.Quit();
+                                }
+                            }
+                        }
+                        catch (Exception exception)
+                        {
+                            Exception currentException = exception;
+                            do
+                            {
+                                switch (currentException)
+                                {
+                                    case ThreadInterruptedException _:
+                                    case ThreadAbortException _:
+                                        throw;
+                                }
+
+                                currentException = currentException.InnerException;
+                            } while (currentException != null);
+
+                            if (attempt == maxAttemptsPerPage)
+                                OnError($"Error during processing page `{page.Name}`: {exception.ToString()}");
+                            else
+                                Thread.Sleep(new TimeSpan(0, 0, 1));
+                        }
+                    }
+                }
+            } while (WaitForNextExecution(mode));
+
+            WhenFinish?.Invoke(this, null);
+
+            try
+            {
+                // In test mode we close the browser only AFTER we show results
+                webDriverHelper?.Driver.Quit();
+            }
+            catch (Exception)
+            {
             }
         }
 
@@ -434,12 +413,14 @@ namespace SiteMonitorings.Worker
 
                 if (needAddToList)
                 {
-                    parametersChangingMutex.WaitOne();
-                    pageSettings.AlreadySendedListings.Add(parametersForListing);
-                    if (pageSettings.AlreadySendedListings.Count > 150)
-                        pageSettings.AlreadySendedListings.RemoveRange(0, pageSettings.AlreadySendedListings.Count - 150);
-                    parametersChangingMutex.ReleaseMutex();
-                    OnFoundNewElement(parametersForListing);
+                    if (OnFoundNewElement(parametersForListing))
+                    {
+                        parametersChangingMutex.WaitOne();
+                        pageSettings.AlreadySendedListings.Add(parametersForListing);
+                        if (pageSettings.AlreadySendedListings.Count > 150)
+                            pageSettings.AlreadySendedListings.RemoveRange(0, pageSettings.AlreadySendedListings.Count - 150);
+                        parametersChangingMutex.ReleaseMutex();
+                    }
                 }
             }
         }
@@ -527,7 +508,8 @@ namespace SiteMonitorings.Worker
                     Thread.Sleep(3000);
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    Debug.Assert(false, "Unknown work mode: " + mode);
+                    return false;
             }
             return true;
         }

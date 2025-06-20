@@ -39,7 +39,7 @@ namespace SiteMonitoring
                 AllowNew = true
             };
 
-            parent.Text = CurrentSettings.Name;
+            parent.Text = CurrentSettings.Name == "" ? "__" : CurrentSettings.Name;
 
             ListPathInfoDetails.SetupElementTypes(ref typeDataGridViewTextBoxColumn1, true);
             ListPathInfoDetails.SetupElementTypes(ref typeDataGridViewTextBoxColumn, false);

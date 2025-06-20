@@ -10,6 +10,8 @@ using SiteMonitorings.Settings;
 
 namespace SiteMonitorings.Worker
 {
+    public delegate bool FoundHandler(object sender, ListingInfo parameters);
+
     /// <summary>
     /// Interface for executing monitoring
     /// </summary>
@@ -24,10 +26,10 @@ namespace SiteMonitorings.Worker
         /// <summary> An error occurred during the execution </summary>
         event EventHandler<string> WhenError;
 
-        /// <summary> An error occurred during the execution </summary>
-        event EventHandler<ListingInfo> WhenFound;
+        /// <summary> Notification about new item found </summary>
+        event FoundHandler WhenFound;
 
-        void Start(List<PageSettings> pageSettings, Mutex parametersChangingMutex, WorkMode mode);
+        bool Start(List<PageSettings> pageSettings, Mutex parametersChangingMutex, WorkMode mode);
 
         /// <summary> Interrupting </summary>
         void Interrupt();

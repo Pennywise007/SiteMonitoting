@@ -127,8 +127,10 @@ namespace SiteMonitorings.UI
             {
                 tabControl.Enabled = !onStart;
                 buttonAddPage.Enabled = !onStart;
+                buttonDuplicate.Enabled = !onStart;
                 buttonDeletePage.Enabled = !onStart;
                 buttonRenamePage.Enabled = !onStart;
+                buttonClearCache.Enabled = !onStart;
                 buttonTestPage.Enabled = !onStart;
 
                 WorkModeComboBox.Enabled = !onStart;
@@ -145,7 +147,6 @@ namespace SiteMonitorings.UI
             if (!string.IsNullOrEmpty(error))
             {
                 OnError(sender, error);
-                return;
             }
 
             Invoke(new MethodInvoker(() =>
@@ -188,8 +189,10 @@ namespace SiteMonitorings.UI
             }
         }
 
-        private void OnFound(object sender, ListingInfo parameters)
+        private bool OnFound(object sender, ListingInfo parameters)
         {
+            bool result = true;
+
             Invoke(new MethodInvoker(() =>
             {
                 try
@@ -213,17 +216,23 @@ namespace SiteMonitorings.UI
                 catch (Exception exception)
                 {
                     Globals.HandleException(exception, "Failed to send data");
+                    result = false;
                 }
             }));
+
+            return result;
         }
         #endregion
 
         private void OnSaveTimer(object source, ElapsedEventArgs e)
         {
             saveTimer.Enabled = false;
-            parametersChangingMutex.WaitOne();
-            SaveSettings();
-            parametersChangingMutex.ReleaseMutex();
+            Invoke((MethodInvoker)delegate
+            {
+                parametersChangingMutex.WaitOne();
+                SaveSettings();
+                parametersChangingMutex.ReleaseMutex();
+            });
         }
 
         private void Run_Click(object sender, EventArgs e)
@@ -241,7 +250,10 @@ namespace SiteMonitorings.UI
             GetSettings();
 
             EnableControls(true);
-            _advertisementsWorker.Start(_settings.pageSettings, parametersChangingMutex, _settings.WorkMode);
+            if (!_advertisementsWorker.Start(_settings.pageSettings, parametersChangingMutex, _settings.WorkMode))
+            {
+                MessageBox.Show("Incorrect settings", "Can't start", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -331,8 +343,9 @@ namespace SiteMonitorings.UI
                 return;
             }
 
-            _settings.pageSettings.Remove(_settings.pageSettings[tabControl.SelectedIndex]);
-            tabControl.Controls.Remove(tabControl.Controls[tabControl.SelectedIndex]);
+            var indexTorRemove = tabControl.SelectedIndex;
+            tabControl.TabPages.Remove(tabControl.TabPages[indexTorRemove]);
+            _settings.pageSettings.Remove(_settings.pageSettings[indexTorRemove]);
         }
 
         private void buttonRenamePage_Click(object sender, EventArgs e)
@@ -365,6 +378,21 @@ namespace SiteMonitorings.UI
 
             _settings.pageSettings.Add(newPage);
             AddPage(_settings.pageSettings.Last());
+        }
+
+        private void buttonClearCache_Click(object sender, EventArgs e)
+        {
+            if (tabControl.SelectedIndex == -1)
+            {
+                MessageBox.Show("Can't clear cache, no page selected", "No tabs", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            parametersChangingMutex.WaitOne();
+            var pageSettings = _settings.pageSettings[tabControl.SelectedIndex];
+            pageSettings.AlreadySendedListings.Clear();
+            parametersChangingMutex.ReleaseMutex();
+            saveTimer.Enabled = true;
         }
 
         private void buttonTestPage_Click(object sender, EventArgs e)
@@ -434,6 +462,8 @@ namespace SiteMonitorings.UI
                     }
                     result += "\n\n";
                 }));
+
+                return true;
             };
             EnableControls(true);
 
@@ -443,6 +473,7 @@ namespace SiteMonitorings.UI
             }, new Mutex(), WorkMode.eTestMode);
         }
     }
+
     static class Globals
     {
         public static void HandleException(Exception exception, string title, IWin32Window window = null)

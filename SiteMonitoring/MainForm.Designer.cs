@@ -42,9 +42,10 @@
             this.buttonDeletePage = new System.Windows.Forms.Button();
             this.buttonRenamePage = new System.Windows.Forms.Button();
             this.buttonTestPage = new System.Windows.Forms.Button();
+            this.buttonDuplicate = new System.Windows.Forms.Button();
             this.PathToListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.ParametersListBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.buttonDuplicate = new System.Windows.Forms.Button();
+            this.buttonClearCache = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.PathToListBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ParametersListBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -183,7 +184,7 @@
             // 
             this.buttonAddPage.Location = new System.Drawing.Point(9, 53);
             this.buttonAddPage.Name = "buttonAddPage";
-            this.buttonAddPage.Size = new System.Drawing.Size(133, 23);
+            this.buttonAddPage.Size = new System.Drawing.Size(118, 23);
             this.buttonAddPage.TabIndex = 22;
             this.buttonAddPage.Text = "Добавить страницу";
             this.buttonAddPage.UseVisualStyleBackColor = true;
@@ -191,9 +192,9 @@
             // 
             // buttonDeletePage
             // 
-            this.buttonDeletePage.Location = new System.Drawing.Point(148, 53);
+            this.buttonDeletePage.Location = new System.Drawing.Point(395, 53);
             this.buttonDeletePage.Name = "buttonDeletePage";
-            this.buttonDeletePage.Size = new System.Drawing.Size(138, 23);
+            this.buttonDeletePage.Size = new System.Drawing.Size(119, 23);
             this.buttonDeletePage.TabIndex = 23;
             this.buttonDeletePage.Text = "Удалить страницу";
             this.buttonDeletePage.UseVisualStyleBackColor = true;
@@ -201,7 +202,7 @@
             // 
             // buttonRenamePage
             // 
-            this.buttonRenamePage.Location = new System.Drawing.Point(292, 53);
+            this.buttonRenamePage.Location = new System.Drawing.Point(228, 53);
             this.buttonRenamePage.Name = "buttonRenamePage";
             this.buttonRenamePage.Size = new System.Drawing.Size(161, 23);
             this.buttonRenamePage.TabIndex = 24;
@@ -211,13 +212,24 @@
             // 
             // buttonTestPage
             // 
-            this.buttonTestPage.Location = new System.Drawing.Point(585, 53);
+            this.buttonTestPage.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.buttonTestPage.Location = new System.Drawing.Point(717, 53);
             this.buttonTestPage.Name = "buttonTestPage";
-            this.buttonTestPage.Size = new System.Drawing.Size(186, 23);
+            this.buttonTestPage.Size = new System.Drawing.Size(129, 23);
             this.buttonTestPage.TabIndex = 25;
             this.buttonTestPage.Text = "Проверить страницу";
             this.buttonTestPage.UseVisualStyleBackColor = true;
             this.buttonTestPage.Click += new System.EventHandler(this.buttonTestPage_Click);
+            // 
+            // buttonDuplicate
+            // 
+            this.buttonDuplicate.Location = new System.Drawing.Point(133, 53);
+            this.buttonDuplicate.Name = "buttonDuplicate";
+            this.buttonDuplicate.Size = new System.Drawing.Size(89, 23);
+            this.buttonDuplicate.TabIndex = 26;
+            this.buttonDuplicate.Text = "Дублировать";
+            this.buttonDuplicate.UseVisualStyleBackColor = true;
+            this.buttonDuplicate.Click += new System.EventHandler(this.buttonDuplicate_Click);
             // 
             // PathToListBindingSource
             // 
@@ -227,21 +239,22 @@
             // 
             this.ParametersListBindingSource.DataSource = typeof(SiteMonitorings.Settings.ParameterInfo);
             // 
-            // buttonDuplicate
+            // buttonClearCache
             // 
-            this.buttonDuplicate.Location = new System.Drawing.Point(459, 53);
-            this.buttonDuplicate.Name = "buttonDuplicate";
-            this.buttonDuplicate.Size = new System.Drawing.Size(95, 23);
-            this.buttonDuplicate.TabIndex = 26;
-            this.buttonDuplicate.Text = "Дублировать";
-            this.buttonDuplicate.UseVisualStyleBackColor = true;
-            this.buttonDuplicate.Click += new System.EventHandler(this.buttonDuplicate_Click);
+            this.buttonClearCache.Location = new System.Drawing.Point(520, 53);
+            this.buttonClearCache.Name = "buttonClearCache";
+            this.buttonClearCache.Size = new System.Drawing.Size(143, 23);
+            this.buttonClearCache.TabIndex = 27;
+            this.buttonClearCache.Text = "Удалить кэш страницы";
+            this.buttonClearCache.UseVisualStyleBackColor = true;
+            this.buttonClearCache.Click += new System.EventHandler(this.buttonClearCache_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(865, 512);
+            this.Controls.Add(this.buttonClearCache);
             this.Controls.Add(this.buttonDuplicate);
             this.Controls.Add(this.buttonTestPage);
             this.Controls.Add(this.buttonRenamePage);
@@ -284,6 +297,7 @@
         private System.Windows.Forms.Button buttonRenamePage;
         private System.Windows.Forms.Button buttonTestPage;
         private System.Windows.Forms.Button buttonDuplicate;
+        private System.Windows.Forms.Button buttonClearCache;
     }
 }
 
