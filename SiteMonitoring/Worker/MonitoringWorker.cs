@@ -168,81 +168,97 @@ namespace SiteMonitorings.Worker
             // In test mode we close the browser only AFTER we show results
             WebDriverHelper webDriverHelper = null;
 
-            do
-            {
-                foreach (var page in pageSettings)
-                {
-                    for (int attempt = 1; attempt <= maxAttemptsPerPage; ++attempt)
-                    {
-                        try
-                        {
-                            try
-                            {
-                                // we open web browser for each page separately because we need to hard reset all browser cache
-                                // otherwise some websites may show captcha or block access
-                                webDriverHelper = CreateWebDriver();
-                            }
-                            catch (Exception exception)
-                            {
-                                throw new Exception($"Failed to create a web driver", exception);
-                            }
-
-                            try
-                            {
-                                webDriverHelper.OpenInCurrentWindow(page.SiteLink);
-                            }
-                            catch (Exception exception)
-                            {
-                                throw new Exception($"Failed to open new tab", exception);
-                            }
-
-                            try
-                            {
-                                checkPage(webDriverHelper, page, parametersChangingMutex);
-                                break;
-                            }
-                            finally
-                            {
-                                if (mode != WorkMode.eTestMode)
-                                {
-                                    // In test mode we close the browser only AFTER we show results
-                                    webDriverHelper.Quit();
-                                }
-                            }
-                        }
-                        catch (Exception exception)
-                        {
-                            Exception currentException = exception;
-                            do
-                            {
-                                switch (currentException)
-                                {
-                                    case ThreadInterruptedException _:
-                                    case ThreadAbortException _:
-                                        throw;
-                                }
-
-                                currentException = currentException.InnerException;
-                            } while (currentException != null);
-
-                            if (attempt == maxAttemptsPerPage)
-                                OnError($"Error during processing page `{page.Name}`: {exception.ToString()}");
-                            else
-                                Thread.Sleep(new TimeSpan(0, 0, 1));
-                        }
-                    }
-                }
-            } while (WaitForNextExecution(mode));
-
-            WhenFinish?.Invoke(this, null);
-
             try
             {
-                // In test mode we close the browser only AFTER we show results
-                webDriverHelper?.Driver.Quit();
+                do
+                {
+                    foreach (var page in pageSettings)
+                    {
+                        for (int attempt = 1; attempt <= maxAttemptsPerPage; ++attempt)
+                        {
+                            try
+                            {
+                                try
+                                {
+                                    // we open web browser for each page separately because we need to hard reset all browser cache
+                                    // otherwise some websites may show captcha or block access
+                                    webDriverHelper = CreateWebDriver();
+                                }
+                                catch (Exception exception)
+                                {
+                                    throw new Exception($"Failed to create a web driver", exception);
+                                }
+
+                                try
+                                {
+                                    webDriverHelper.OpenInCurrentWindow(page.SiteLink);
+                                }
+                                catch (Exception exception)
+                                {
+                                    throw new Exception($"Failed to open new tab", exception);
+                                }
+
+                                try
+                                {
+                                    checkPage(webDriverHelper, page, parametersChangingMutex);
+                                    break;
+                                }
+                                finally
+                                {
+                                    if (mode != WorkMode.eTestMode)
+                                    {
+                                        // In test mode we close the browser only AFTER we show results
+                                        webDriverHelper.Quit();
+                                    }
+                                }
+                            }
+                            catch (Exception exception)
+                            {
+                                Exception currentException = exception;
+                                do
+                                {
+                                    switch (currentException)
+                                    {
+                                        case ThreadInterruptedException _:
+                                        case ThreadAbortException _:
+                                            throw currentException;
+                                    }
+
+                                    currentException = currentException.InnerException;
+                                } while (currentException != null);
+
+                                if (attempt == maxAttemptsPerPage)
+                                    OnError($"Error during processing page `{page.Name}`: {exception.ToString()}");
+                                else
+                                    Thread.Sleep(new TimeSpan(0, 0, 1));
+                            }
+                        }
+                    }
+                } while (WaitForNextExecution(mode));
             }
-            catch (Exception)
+            catch (Exception exception)
             {
+                switch (exception)
+                {
+                    case ThreadInterruptedException _:
+                    case ThreadAbortException _:
+                        return;
+                }
+
+                Debug.Assert(false, $"Unhandled exception {exception.ToString()}");
+            }
+            finally
+            {
+                WhenFinish?.Invoke(this, null);
+
+                try
+                {
+                    // In test mode we close the browser only AFTER we show results
+                    webDriverHelper?.Driver.Quit();
+                }
+                catch (Exception)
+                {
+                }
             }
         }
 
@@ -511,6 +527,7 @@ namespace SiteMonitorings.Worker
                     Debug.Assert(false, "Unknown work mode: " + mode);
                     return false;
             }
+
             return true;
         }
     }
